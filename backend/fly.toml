@@ -1,17 +1,19 @@
-# fly.toml app configuration file generated for ai-portfolio on 2025-06-15T00:30:11+03:00
+# fly.toml app configuration file generated for frontend-quiet-wave-2773 on 2025-06-15T01:39:56+03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'ai-portfolio'
+app = 'frontend-quiet-wave-2773'
 primary_region = 'lhr'
 
+[build]
+
 [http_service]
-  internal_port = 8080
+  internal_port = 80
   force_https = true
   auto_stop_machines = 'stop'
   auto_start_machines = true
-  min_machines_running = 2
+  min_machines_running = 0
   processes = ['app']
 
 [[vm]]
