@@ -13,18 +13,18 @@ The `config.json` file has the following structure:
 ```json
 {
   "personal": {
-    "name": "Your Name",
-    "email": "your.email@example.com",
+    "name": "Ilya Rahmilevich",
+    "email": "irahmilevich@gmail.com",
   },
   "social": {
     "github": {
-      "url": "https://github.com/yourusername"
+      "url": "https://github.com/ilyar88"
     },
     "linkedin": {
-      "url": "https://linkedin.com/in/yourusername"
+      "url": "https://www.linkedin.com/in/ilya-rahmilevich-8b4035115"
     },
     "email": {
-      "url": "mailto:your.email@example.com"
+      "url": "mailto:irahmilevich@gmail.com"
     }
   },
   "content": {
