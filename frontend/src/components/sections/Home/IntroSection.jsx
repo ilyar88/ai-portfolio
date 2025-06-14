@@ -18,7 +18,7 @@ export const IntroSection = () => {
   
   // Gradient classes for cards
   const gradientClasses = [
-    "before:from-rose-500/10 before:via-purple-500/15 before:to-purple-500/10",
+    "before:from-rose-500/10 before:via-blue-500/15 before:to-blue-500/10",
     "before:from-blue-500/10 before:via-cyan-500/15 before:to-blue-500/10",
     "before:from-emerald-500/10 before:via-teal-500/15 before:to-emerald-500/10"
   ];

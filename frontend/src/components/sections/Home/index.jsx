@@ -21,16 +21,16 @@ export const HomeSection = () => {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ type: "spring", bounce: 0.5 }}
       >
-        <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-purple-500 relative">
+        <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-blue-500 relative">
           <img 
             src="/profile.jpg" 
             alt={personalInfo.name}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-transparent" />
+          <div className="absolute inset-0" />
         </div>
         <motion.div 
-          className="absolute -bottom-2 -right-2 w-10 h-10 md:w-12 md:h-12 bg-purple-500 rounded-full flex items-center justify-center"
+          className="absolute -bottom-2 -right-2 w-10 h-10 md:w-12 md:h-12 bg-blue-500 rounded-full flex items-center justify-center"
           animate={{ rotate: 360 }}
           transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
         >
@@ -42,7 +42,7 @@ export const HomeSection = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4 }}
-        className="text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent leading-relaxed px-4 py-1"
+        className="text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent leading-relaxed px-4 py-1"
       >
         {personalInfo.name}
       </motion.h1>

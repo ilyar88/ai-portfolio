@@ -116,6 +116,6 @@ describe('ProjectsSection', () => {
     renderWithConfig(<ProjectsSection />);
     
     // Check that useGithubRepos was called with correct parameters
-    expect(useGithubRepos).toHaveBeenCalledWith('alonxt', 6);
+    expect(useGithubRepos).toHaveBeenCalledWith('ilyar88', 6);
   });
 }); 

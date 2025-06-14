@@ -36,9 +36,9 @@ describe('TypingIndicator', () => {
     const animationDots = container.querySelectorAll('.animate-bounce');
     expect(animationDots.length).toBe(3);
     
-    // Check for the purple styling on the dots
-    const purpleDots = container.querySelectorAll('.bg-purple-400');
-    expect(purpleDots.length).toBe(3);
+    // Check for the blue styling on the dots
+    const blueDots = container.querySelectorAll('.bg-blue-400');
+    expect(blueDots.length).toBe(3);
     
     // Check for the message bubble styling
     const messageBubble = container.querySelector('.bg-gray-800\\/80');

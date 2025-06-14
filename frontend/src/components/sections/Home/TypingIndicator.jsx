@@ -28,8 +28,8 @@ export const TypingIndicator = ({ inline = false }) => {
       className="flex items-start gap-3 justify-start mb-4"
       data-testid="ai-typing-indicator"
     >
-      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center">
-        <Bot className="w-4 h-4 text-purple-400" />
+      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center">
+        <Bot className="w-4 h-4 text-blue-400" />
       </div>
       <div className="flex flex-col items-start max-w-[80%]">
         <div className="rounded-2xl p-4 bg-gray-800/80 text-gray-200 w-full">
@@ -38,7 +38,7 @@ export const TypingIndicator = ({ inline = false }) => {
               {[0, 0.15, 0.3].map((delay, i) => (
                 <span
                   key={i}
-                  className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce"
+                  className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce"
                   style={{ animationDelay: `${delay}s` }}
                 />
               ))}
