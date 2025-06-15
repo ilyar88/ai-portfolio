@@ -1,4 +1,4 @@
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'https://frontend-quiet-wave-2773.fly.dev';
 
 export class ChatService {
   static async handleStreamingResponse(response, callbacks) {

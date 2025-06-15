@@ -23,7 +23,7 @@ def create_app() -> FastAPI:
     frontend_url = os.getenv("FRONTEND_URL")
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=[frontend_url, "https://fly.io/apps/pgvector-db"],
+        allow_origins=[frontend_url, "http://localhost"],
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
@@ -35,7 +35,7 @@ def create_app() -> FastAPI:
 def get_db_config() -> PostgresConfig:
     """Creates database configuration from environment variables"""
     return PostgresConfig(
-        server=os.getenv("POSTGRES_SERVER"),
+        server=os.getenv("POSTGRES_SERVER", "localhost"),
         port=int(os.getenv("POSTGRES_PORT", "5432")),
         db_name=os.getenv("POSTGRES_DB"),
         user=os.getenv("POSTGRES_USER"),
