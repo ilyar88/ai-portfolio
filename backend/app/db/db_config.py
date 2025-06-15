@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 
 class PostgresConfig(BaseModel):
-    server: str = "localhost"
+    server: str = "https://fly.io/apps/pgvector-db"
     port: int = 5432
     db_name: str
     user: str

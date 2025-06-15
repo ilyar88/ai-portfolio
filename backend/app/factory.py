@@ -35,7 +35,7 @@ def create_app() -> FastAPI:
 def get_db_config() -> PostgresConfig:
     """Creates database configuration from environment variables"""
     return PostgresConfig(
-        server=os.getenv("POSTGRES_SERVER", "localhost"),
+        server=os.getenv("POSTGRES_SERVER"),
         port=int(os.getenv("POSTGRES_PORT", "5432")),
         db_name=os.getenv("POSTGRES_DB"),
         user=os.getenv("POSTGRES_USER"),
