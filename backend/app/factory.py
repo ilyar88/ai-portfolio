@@ -23,7 +23,7 @@ def create_app() -> FastAPI:
     frontend_url = os.getenv("FRONTEND_URL")
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=[frontend_url, "http://localhost"],
+        allow_origins=[frontend_url, "https://fly.io/apps/pgvector-db"],
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
