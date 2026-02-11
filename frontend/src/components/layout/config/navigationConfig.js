@@ -58,6 +58,6 @@ export const sections = {
     icon: Blog,
     title: 'Blog',
     path: '/blog',
-    color: 'from-pink-500 to-rose-500'
+    color: 'from-blue-400 to-indigo-500'
   }
 } 
