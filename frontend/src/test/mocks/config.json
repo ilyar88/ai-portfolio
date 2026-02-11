@@ -1,18 +1,18 @@
 {
   "personal": {
-    "name": "Test User",
-    "email": "test@example.com",
-    "profileImageAlt": "Test User"
+    "name": "Ilya Rahmilevich",
+    "email": "irahmilevich@gmail.com",
+    "profileImageAlt": "Ilya Rahmilevich"
   },
   "social": {
     "github": {
-      "url": "https://github.com/testuser"
+      "url": "https://github.com/ilyar88"
     },
     "linkedin": {
-      "url": "https://linkedin.com/in/alon-trugman"
+      "url": "https://www.linkedin.com/in/ilya-rahmilevich/"
     },
     "email": {
-      "url": "mailto:alon.xt@gmail.com"
+      "url": "mailto:irahmilevich@gmail.com"
     }
   },
 
@@ -43,7 +43,7 @@
   },
   
   "chat": {
-    "inputPlaceholder": "Ask me anything about Alon...",
+    "inputPlaceholder": "Ask me anything about Ilya...",
     "initialMessage": "Hello!"
   }
 } 
