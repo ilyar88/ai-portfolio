@@ -50,15 +50,15 @@ describe('ProjectsSection', () => {
     const mockRepos = [
       {
         id: 1,
-        name: 'Test Repo 1',
+        name: 'MyFinancialPlan-project',
         description: 'Test description 1',
-        html_url: 'https://github.com/alonxt/test-repo-1'
+        html_url: 'https://github.com/ilyar88/MyFinancialPlan-project'
       },
       {
         id: 2,
-        name: 'Test Repo 2',
+        name: 'Python-project',
         description: 'Test description 2',
-        html_url: 'https://github.com/alonxt/test-repo-2'
+        html_url: 'https://github.com/ilyar88/Python-project'
       }
     ];
     
@@ -71,15 +71,15 @@ describe('ProjectsSection', () => {
     renderWithConfig(<ProjectsSection />);
     
     // Check that repositories are rendered
-    expect(screen.getByText('Test Repo 1')).toBeInTheDocument();
-    expect(screen.getByText('Test Repo 2')).toBeInTheDocument();
+    expect(screen.getByText('MyFinancialPlan-project')).toBeInTheDocument();
+    expect(screen.getByText('Python-project')).toBeInTheDocument();
     expect(screen.getByText('Test description 1')).toBeInTheDocument();
     expect(screen.getByText('Test description 2')).toBeInTheDocument();
     
     // Check that links are correct
     const links = screen.getAllByText('View Project');
-    expect(links[0].closest('a')).toHaveAttribute('href', 'https://github.com/alonxt/test-repo-1');
-    expect(links[1].closest('a')).toHaveAttribute('href', 'https://github.com/alonxt/test-repo-2');
+    expect(links[0].closest('a')).toHaveAttribute('href', 'https://github.com/ilyar88/MyFinancialPlan-project');
+    expect(links[1].closest('a')).toHaveAttribute('href', 'https://github.com/ilyar88/Python-project');
   });
   
   it('renders repositories with missing descriptions', () => {
