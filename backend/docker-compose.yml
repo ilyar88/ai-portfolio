@@ -1,5 +1,4 @@
 version: '3.8'
-
 services:
   db:
     build:
@@ -7,7 +6,7 @@ services:
       dockerfile: Dockerfile.postgres
     restart: always
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      test: ["CMD-SHELL", "pg_isready"]
       interval: 10s
       retries: 5
       start_period: 30s
@@ -15,7 +14,7 @@ services:
     volumes:
       - app-db-data:/var/lib/postgresql/data/pgdata
     env_file:
-      - .env
+      - ../.env
     environment:
       - PGDATA=/var/lib/postgresql/data/pgdata
     networks:
@@ -48,7 +47,7 @@ services:
       redis:
         condition: service_healthy
     env_file:
-      - .env
+      - ../.env
     environment:
       - POSTGRES_SERVER=db
       - REDIS_URL=redis://redis:6379
