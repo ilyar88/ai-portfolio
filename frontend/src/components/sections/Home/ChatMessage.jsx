@@ -33,8 +33,8 @@ export const ChatMessage = ({ message }) => {
 };
 
 const MessageAvatar = ({ icon: Icon }) => (
-  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center">
-    <Icon className="w-4 h-4 text-purple-400" />
+  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center">
+    <Icon className="w-4 h-4 text-blue-400" />
   </div>
 );
 
@@ -42,7 +42,7 @@ const MessageContent = ({ message }) => (
   <div
     className={`rounded-2xl p-4 ${
       message.role === 'user'
-        ? 'bg-purple-500 text-white'
+        ? 'bg-blue-500 text-white'
         : message.isError
         ? 'bg-red-500/10 text-red-200 border border-red-500/20'
         : 'bg-gray-800/80 text-gray-200'
