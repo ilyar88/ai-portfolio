@@ -51,7 +51,7 @@ export const ChatBox = () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gray-900 rounded-2xl p-4 min-h-[400px] flex flex-col border border-purple-500/20 shadow-lg relative"
+        className="bg-gray-900 rounded-2xl p-4 min-h-[400px] flex flex-col border border-blue-500/20 shadow-lg relative"
       >
         {/* Chat Header */}
         <motion.div 
@@ -61,9 +61,9 @@ export const ChatBox = () => {
           transition={{ duration: 0.5 }}
         >
           {/* Animated background gradients */}
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-orange-500/10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-blue-400/10 to-cyan-500/10" />
           <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-transparent"
+            className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-transparent"
             animate={{
               opacity: [0.5, 0.8, 0.5],
               scale: [1, 1.1, 1],
@@ -83,8 +83,8 @@ export const ChatBox = () => {
               whileHover={{ scale: 1.1, rotate: [0, -10, 10, 0] }}
               transition={{ duration: 0.5 }}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-lg opacity-50" />
-              <div className="relative bg-gradient-to-br from-purple-500 to-pink-600 p-2 rounded-xl shadow-lg shadow-purple-500/20">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full blur-lg opacity-50" />
+              <div className="relative bg-gradient-to-br from-blue-500 to-cyan-600 p-2 rounded-xl shadow-lg shadow-blue-500/20">
                 <Bot className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
             </motion.div>
@@ -92,7 +92,7 @@ export const ChatBox = () => {
             {/* Title with sparkle */}
             <div className="flex items-center gap-1 sm:gap-2">
               <motion.h2 
-                className="text-sm sm:text-xl font-bold bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent"
+                className="text-sm sm:text-xl font-bold bg-gradient-to-r from-white via-blue-200 to-cyan-200 bg-clip-text text-transparent"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2 }}
@@ -111,7 +111,7 @@ export const ChatBox = () => {
                 }}
                 className="flex-shrink-0"
               >
-                <Sparkles className="w-3 h-3 sm:w-5 sm:h-5 text-purple-400" />
+                <Sparkles className="w-3 h-3 sm:w-5 sm:h-5 text-blue-400" />
               </motion.div>
             </div>
           </div>
@@ -120,7 +120,7 @@ export const ChatBox = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="relative flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 rounded-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 ml-2 sm:ml-4 flex-shrink-0"
+            className="relative flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 rounded-full bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/20 ml-2 sm:ml-4 flex-shrink-0"
           >
             <motion.div
               className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-500"
@@ -141,7 +141,7 @@ export const ChatBox = () => {
         {/* Messages container */}
         <div
           ref={chatContainerRef}
-          className="flex-1 overflow-y-auto space-y-4 mb-4 max-h-[300px] scroll-smooth scrollbar-thin scrollbar-thumb-purple-500/50 scrollbar-track-gray-800/50 pr-4"
+          className="flex-1 overflow-y-auto space-y-4 mb-4 max-h-[300px] scroll-smooth scrollbar-thin scrollbar-thumb-blue-500/50 scrollbar-track-gray-800/50 pr-4"
         >
           <AnimatePresence>
             {messages.map((message, index) => (
