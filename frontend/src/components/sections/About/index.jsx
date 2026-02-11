@@ -44,7 +44,7 @@ export const AboutSection = () => {
       exit={{ opacity: 0 }}
       className="max-w-3xl mx-auto relative flex flex-col items-center pb-12"
     >
-      <div className="terminal-window bg-gray-900 rounded-lg p-6 border border-purple-500/30 w-full">
+      <div className="terminal-window bg-gray-900 rounded-lg p-6 border border-blue-500/30 w-full">
         <div className="flex items-center gap-2 mb-4">
           <div className="w-3 h-3 rounded-full bg-red-500" />
           <div className="w-3 h-3 rounded-full bg-yellow-500" />
@@ -52,7 +52,7 @@ export const AboutSection = () => {
         </div>
         <div className="font-mono">
           <span className="text-green-500">➜</span>
-          <span className="text-purple-500"> ~/about-me</span>
+          <span className="text-blue-500"> ~/about-me</span>
           <span className="text-white"> cat about-me.md</span>
           <div className="mt-4 text-gray-300 whitespace-pre-line min-h-[200px]">
             {displayedContent}
@@ -70,9 +70,9 @@ export const AboutSection = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleSkip}
-            className="mt-6 px-4 py-2 bg-purple-500 hover:bg-purple-600 
+            className="mt-6 px-4 py-2 bg-blue-500 hover:bg-blue-600 
                      rounded-full flex items-center gap-2 text-white shadow-lg 
-                     hover:shadow-purple-500/50 transition-all duration-300"
+                     hover:shadow-blue-500/50 transition-all duration-300"
           >
             <FastForward className="w-4 h-4" />
             <span>Skip Typing</span>
