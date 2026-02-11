@@ -58,7 +58,7 @@
   }
 
   .markdown-content blockquote {
-    @apply border-l-4 border-purple-500/50 pl-4 mb-4 italic;
+    @apply border-l-4 border-blue-500/50 pl-4 mb-4 italic;
   }
 }
 
