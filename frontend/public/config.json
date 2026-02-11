@@ -1,18 +1,18 @@
 {
   "personal": {
-    "name": "Alon Trugman",
-    "email": "alon.xt@gmail.com",
-    "profileImageAlt": "Alon Trugman"
+    "name": "Ilya Rahmilevich",
+    "email": "irahmilevich@gmail.com",
+    "profileImageAlt": "Ilya Rahmilevich"
   },
   "social": {
     "github": {
-      "url": "https://github.com/alonxt"
+      "url": "https://github.com/ilyar88"
     },
     "linkedin": {
-      "url": "https://linkedin.com/in/alon-trugman"
+      "url": "https://linkedin.com/in/ilya-rahmilevich"
     },
     "email": {
-      "url": "mailto:alon.xt@gmail.com"
+      "url": "mailto:irahmilevich@gmail.com"
     }
   },
   "content": {
@@ -41,7 +41,7 @@
     }
   },
   "chat": {
-    "inputPlaceholder": "Ask me anything about Alon...",
-    "initialMessage": "Hey there! 👋 I'm Alon's AI assistant, I have access to his writings, and life insights. Feel free to ask and explore about his professional path or personal growth!"
+    "inputPlaceholder": "Ask me anything about Ilya...",
+    "initialMessage": "Hey there! 👋 I'm Ilya's AI assistant, I have access to his writings, and life insights. Feel free to ask and explore about his professional path or personal growth!"
   }
 } 
