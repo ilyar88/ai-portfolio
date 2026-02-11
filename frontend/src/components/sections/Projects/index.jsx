@@ -3,7 +3,7 @@ import { Github } from 'lucide-react'
 import { useGithubRepos } from '../../../hooks/useGithubRepos'
 
 export const ProjectsSection = () => {
-  const { repos, loading, error } = useGithubRepos('alonxt', 6)
+  const { repos, loading, error } = useGithubRepos('ilyar88', 2)
 
   if (loading) return <div>Loading...</div>
   if (error) return <div>Error loading projects</div>
@@ -24,7 +24,7 @@ export const ProjectsSection = () => {
           transition={{ delay: index * 0.1 }}
           className="group relative min-h-[200px] flex w-full"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-transparent rounded-lg transform group-hover:scale-105 transition-transform" />
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-transparent rounded-lg transform group-hover:scale-105 transition-transform" />
           <div className="relative p-4 md:p-6 rounded-lg bg-white/5 border border-white/10 backdrop-blur-sm w-full flex flex-col">
             <h3 className="text-xl font-bold mb-2 truncate">{repo.name}</h3>
             <p className="text-gray-400 mb-4 flex-grow line-clamp-3 sm:line-clamp-2">
@@ -35,7 +35,7 @@ export const ProjectsSection = () => {
                 href={repo.html_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 rounded-lg bg-purple-500 hover:bg-purple-600 transition-colors inline-flex items-center gap-2"
+                className="px-4 py-2 rounded-lg bg-blue-500 hover:bg-blue-600 transition-colors inline-flex items-center gap-2"
               >
                 <Github className="w-4 h-4" />
                 <span>View Project</span>
