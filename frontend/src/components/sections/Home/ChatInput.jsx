@@ -52,7 +52,7 @@ export const ChatInput = ({ input, setInput, isLoading, onSubmit, onStop }) => {
             exit={{ scale: 0, rotate: -180 }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="flex-shrink-0 bg-gradient-to-r from-blue-500 to-cyan-500 text-white p-3 rounded-lg transition-all duration-200 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 hover:from-blue-600 hover:to-cyan-600 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+            className="flex-shrink-0 bg-gradient-to-r from-orange-400 to-amber-300 text-white p-3 rounded-lg transition-all duration-200 shadow-lg shadow-orange-400/30 hover:shadow-orange-400/40 hover:from-orange-500 hover:to-amber-400 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
           >
             <Send className="w-5 h-5" />
           </motion.button>
