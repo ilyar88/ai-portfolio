@@ -53,11 +53,8 @@ class ChatService:
             )
         
         except Exception as e:
-            logger.error(f"Error in stream_chat: {str(e)}")
-            raise HTTPException(
-                status_code=500,
-                detail="An error occurred while processing your request"
-            )
+            logger.exception(f"Error in stream_chat: {str(e)}")
+            yield f'0:{json.dumps("An error occurred while processing your request")}\n'
             
     async def _fetch_relevant_context(self, user_message: str) -> str:
         """
