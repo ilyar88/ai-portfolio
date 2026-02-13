@@ -156,7 +156,6 @@ class DatabaseHandler:
         try:
             with self.get_session() as session:
                 session.exec(query, params={'file_path': file_path})
-                session.commit()
                 return True
         except Exception as e:
             logger.error(f"Failed to delete document chunks: {str(e)}")
