@@ -77,9 +77,9 @@ class ChatService:
                 return ""
             
             context = ""
-            for chunk in chunks:    
-                logger.info(f"Chunk: {chunk.content}")
-                context += f"{chunk.content}\n\n"
+            for chunk in chunks:
+                logger.info(f"Chunk: {chunk[0]}")
+                context += f"{chunk[0]}\n\n"
             logger.info(f"Found {len(chunks)} relevant chunks for context")
             
             return context
