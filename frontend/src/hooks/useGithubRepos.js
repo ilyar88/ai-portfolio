@@ -10,10 +10,11 @@ export const useGithubRepos = (username, limit = 6) => {
     const loadRepos = async () => {
       try {
         const data = await fetchUserRepos(username)
-        const filtered = data.filter(repo => !repo.fork || repo.name === 'ai-portfolio')
-        const aiPortfolio = filtered.find(repo => repo.name === 'ai-portfolio')
-        const others = filtered.filter(repo => repo.name !== 'ai-portfolio')
-        const ordered = [...others.slice(0, limit - 1), ...(aiPortfolio ? [aiPortfolio] : [])].slice(0, limit)
+        const pinnedForks = ['Dockerized_Flask_Mongo_App_Project', 'ai-portfolio']
+        const filtered = data.filter(repo => !repo.fork || pinnedForks.includes(repo.name))
+        const pinned = pinnedForks.map(name => filtered.find(repo => repo.name === name)).filter(Boolean)
+        const others = filtered.filter(repo => !pinnedForks.includes(repo.name))
+        const ordered = [...others.slice(0, limit - pinned.length), ...pinned].slice(0, limit)
         setRepos(ordered)
       } catch (err) {
         setError(err)
