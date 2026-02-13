@@ -9,8 +9,8 @@ primary_region = 'fra'
 [build]
 
 [env]
-  LLM_MODEL = 'anthropic/claude-3-5-sonnet-latest'
-  LLM_ROUTER_URL = 'https://router.requesty.ai/v1'
+  LLM_MODEL = 'gpt-4o-mini'
+  LLM_ROUTER_URL = 'https://api.openai.com/v1'
   UVICORN_IP = '0.0.0.0'
   UVICORN_PORT = '8080'
   POSTGRES_SERVER="pgvector-db-ilya.flycast"
