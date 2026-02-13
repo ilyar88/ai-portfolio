@@ -3,7 +3,7 @@ import { Github } from 'lucide-react'
 import { useGithubRepos } from '../../../hooks/useGithubRepos'
 
 export const ProjectsSection = () => {
-  const { repos, loading, error } = useGithubRepos('ilyar88', 3)
+  const { repos, loading, error } = useGithubRepos('ilyar88', 4)
 
   if (loading) return <div>Loading...</div>
   if (error) return <div>Error loading projects</div>
