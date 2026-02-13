@@ -10,7 +10,11 @@ export const useGithubRepos = (username, limit = 6) => {
     const loadRepos = async () => {
       try {
         const data = await fetchUserRepos(username)
-        setRepos(data.filter(repo => !repo.fork).slice(0, limit))
+        const filtered = data.filter(repo => !repo.fork || repo.name === 'ai-portfolio')
+        const aiPortfolio = filtered.find(repo => repo.name === 'ai-portfolio')
+        const others = filtered.filter(repo => repo.name !== 'ai-portfolio')
+        const ordered = [...others.slice(0, limit - 1), ...(aiPortfolio ? [aiPortfolio] : [])].slice(0, limit)
+        setRepos(ordered)
       } catch (err) {
         setError(err)
       } finally {
