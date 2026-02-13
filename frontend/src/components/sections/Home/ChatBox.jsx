@@ -16,7 +16,7 @@ export const ChatBox = () => {
   const lastMessageCountRef = useRef(messages.length);
   
   const personalInfo = getPersonalInfo();
-  const firstName = personalInfo?.name.split(' ')[0] || 'AI';
+  const firstName = personalInfo?.name?.split(' ')[0] || 'AI';
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
