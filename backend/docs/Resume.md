@@ -11,8 +11,8 @@ Implemented robust UI automation frameworks using Selenium + Maven (Java) and Az
 
 ### 2023 - 2024: QA Engineer, RRsystems*
 Enhanced automation coverage while performing hands-on manual testing for a web system used to manage medical centers, clinics, and health funds (e.g., diagnostic institutes and healthcare service providers). Owned Azure DevOps test plans & reports, replacing spreadsheet-based testing with structured test management. Built JavaScript-based automation aligned to real business workflows and data-privacy constraints.
-* RImproved test documentation & execution efficiency by 20% using Azure DevOps test plans.
-* RReduced regression and verification time using IIS-based validation of Dev branch changes.
+* Improved test documentation & execution efficiency by 20% using Azure DevOps test plans.
+* Reduced regression and verification time using IIS-based validation of Dev branch changes.
 
 
 ### 2013 - 2022: QA Engineer, Malam Team*
