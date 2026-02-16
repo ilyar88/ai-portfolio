@@ -27,7 +27,7 @@ export const ProjectsSection = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-transparent rounded-lg transform group-hover:scale-105 transition-transform" />
           <div className="relative p-4 md:p-6 rounded-lg bg-white/5 border border-white/10 backdrop-blur-sm w-full flex flex-col">
             <h3 className="text-xl font-bold mb-2 truncate">{repo.name}</h3>
-            <p className="text-gray-400 mb-4 flex-grow line-clamp-3 sm:line-clamp-2">
+            <p className="text-gray-400 mb-4 flex-grow overflow-y-auto max-h-24 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
               {repo.description || 'No description available'}
             </p>
             <div className="flex items-center gap-4">
