@@ -9,7 +9,7 @@ export const getSocialLinksWithIcons = () => {
   // Create the social links array with icons
   return [
     {
-      href: "/cv.pdf",
+      href: "/CV.pdf",
       icon: Download,
       label: "Download CV",
       color: "hover:text-[#F5A623]",  // Warm accent color
