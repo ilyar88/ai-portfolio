@@ -7,12 +7,11 @@ export const SocialLinks = ({ isMobile = false }) => {
 
   return (
     <div className={`flex items-center ${isMobile ? 'justify-around w-full' : 'gap-2'}`}>
-      {socialLinks.map(({ href, icon: Icon, label, color }) => (
+      {socialLinks.map(({ href, icon: Icon, label, color, download }) => (
         <motion.a
           key={label}
           href={href}
-          target="_blank"
-          rel="noopener noreferrer"
+          {...(download ? { download: true } : { target: "_blank", rel: "noopener noreferrer" })}
           {...navConfig.iconAnimation}
           className={`
             ${isMobile ? 'p-3 flex flex-col items-center gap-1' : 'p-2'}
