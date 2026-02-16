@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, BookOpen, Code, BookOpen as Blog } from 'lucide-react'
+import { Github, Linkedin, Mail, Download, BookOpen, Code, BookOpen as Blog } from 'lucide-react'
 import { getSocialLinks } from '../../../config/configLoader'
 
 // Social links are now loaded from the configuration
@@ -8,8 +8,15 @@ export const getSocialLinksWithIcons = () => {
   
   // Create the social links array with icons
   return [
-    { 
-      href: social?.github?.url || "https://github.com", 
+    {
+      href: "/cv.pdf",
+      icon: Download,
+      label: "Download CV",
+      color: "hover:text-[#F5A623]",  // Warm accent color
+      download: true
+    },
+    {
+      href: social?.github?.url || "https://github.com",
       icon: Github, 
       label: "GitHub",
       color: "hover:text-[#2DA44E]"  // GitHub color
