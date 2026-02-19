@@ -30,5 +30,5 @@ Led QA for large-scale on-prem enterprise systems with a strong hands-on focus o
 ### LANGUAGES
 Hebrew - Native | English - Fluent | Russian - Fluent
 
-I also know MongoDB, Python (Pytest), bdd cucumber api testing.
+I also know Playwright, MongoDB, Python (Pytest), bdd cucumber api testing.
 Include test documents: STP, STD
