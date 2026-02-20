@@ -2,7 +2,7 @@ ILYA RAHMILEVICH - QA AUTOMATION ENGINEER
 
 ### SUMMARY*
 Challenge, Achievement, Learning.
-QA Automation Engineer, experienced in Web & Mobile testing, Selenium, JavaScript, Python, Postman, SQL, Jira, and Azure DevOps. A speech impediment (disability) has never held me back from delivering high-impact automation solutions that increased sales and satisfaction across finance, commerce, government, transportation, and healthcare industries.
+QA Automation Engineer, experienced in Web & Mobile testing, Selenium, Playright, TypeScript, Python (PyTest), BDD cucumber framework (API),Postman, SQL, MongoDb, Jira, and Azure DevOps. A speech impediment (disability) has never held me back from delivering high-impact automation solutions that increased sales and satisfaction across finance, commerce, government, transportation, and healthcare industries.
 
 ### 2025 - Present: QA Automation Engineer, Techtopia*
 Implemented robust UI automation frameworks using Selenium + Maven (Java) and Azure DevOps; designed and executed E2E test suites for MyFinancePlan (SaaS) running on cloud infrastructure. Integrated automation into CI pipelines (GitHub Actions, Docker), including Bash scripting to parse XML test results, generate Allure HTML reports as artifacts, and automate load testing with Grafana k6 via multi-stage pipelines to improve feedback quality and release reliability.
@@ -29,6 +29,3 @@ Led QA for large-scale on-prem enterprise systems with a strong hands-on focus o
 
 ### LANGUAGES
 Hebrew - Native | English - Fluent | Russian - Fluent
-
-I also know Playwright, MongoDB, Python (Pytest), bdd cucumber api testing.
-Include test documents: STP, STD
