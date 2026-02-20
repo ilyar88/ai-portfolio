@@ -66,7 +66,7 @@ class ChatService:
             query_embedding: List[float] = self.embeddings.embed_query(user_message)
             chunks: List[DocumentChunk] = await self.db_handler.search_similar_chunks(
                 query_embedding,
-                limit=4
+                limit=8
             )
             
             if not chunks:
