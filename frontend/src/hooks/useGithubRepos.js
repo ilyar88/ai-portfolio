@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { fetchUserRepos } from '../services/github'
 
-export const useGithubRepos = (username, limit = 6) => {
+export const useGithubRepos = (username, limit = 5) => {
   const [repos, setRepos] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
