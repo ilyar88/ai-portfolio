@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, Download, BookOpen, Code, BookOpen as Blog } from 'lucide-react'
+import { Github, Linkedin, Mail, Download, BookOpen, Code, Bot } from 'lucide-react'
 import { getSocialLinks } from '../../../config/configLoader'
 
 // Social links are now loaded from the configuration
@@ -62,7 +62,7 @@ export const sections = {
     color: 'from-emerald-500 to-green-500'
   },
   blog: {
-    icon: Blog,
+    icon: Bot,
     title: 'Budling AI agents for testing - new',
     path: '/blog',
     color: 'from-blue-400 to-indigo-500'
