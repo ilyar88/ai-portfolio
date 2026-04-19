@@ -24,7 +24,7 @@ export const IntroSection = () => {
   ];
 
   return (
-    <div className="w-full max-w-4xl mx-auto mt-4 md:mt-8 mb-4 md:mb-8">
+    <div className="w-full max-w-4xl mx-auto mt-4 md:mt-8 mb-0 md:mb-2">
       <div className="space-y-4 md:space-y-6">
         {/* Feature cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
