@@ -47,6 +47,8 @@ export const HomeSection = () => {
       
       <IntroSection />
 
+      <p className="font-bold text-green-400 mb-6">Open to work</p>
+
       <ChatBox />
 
     </motion.div>
