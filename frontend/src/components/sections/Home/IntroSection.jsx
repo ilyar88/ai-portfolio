@@ -61,7 +61,7 @@ export const IntroSection = () => {
         </div>
 
         {/* Content section */}
-        <div className="text-center max-w-3xl mx-auto space-y-2 md:space-y-4">
+        <div className="text-center max-w-3xl mx-auto space-y-1 md:space-y-2">
           {content.paragraphs.map((paragraph, index) => (
             <p 
               key={index}
