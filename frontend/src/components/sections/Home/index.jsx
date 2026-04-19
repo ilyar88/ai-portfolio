@@ -47,7 +47,7 @@ export const HomeSection = () => {
       
       <IntroSection />
 
-      <p className="font-bold text-green-400 mb-6">Open to work</p>
+      <p className="text-2xl md:text-3xl font-bold text-green-400 mb-2 tracking-wide drop-shadow-[0_0_8px_rgba(74,222,128,0.5)]">Open to work</p>
 
       <ChatBox />
 
