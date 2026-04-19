@@ -47,7 +47,7 @@ export const HomeSection = () => {
       
       <IntroSection />
 
-      <p className="text-2xl md:text-3xl font-bold text-green-400 mt-4 mb-2 tracking-wide drop-shadow-[0_0_8px_rgba(74,222,128,0.5)] transition-transform duration-200 hover:scale-110 cursor-default">Open to work</p>
+      <p className="text-2xl md:text-3xl font-bold text-green-400 mt-1 mb-1 tracking-wide drop-shadow-[0_0_8px_rgba(74,222,128,0.5)] transition-transform duration-200 hover:scale-110 cursor-default">Open to work</p>
 
       <ChatBox />
 
