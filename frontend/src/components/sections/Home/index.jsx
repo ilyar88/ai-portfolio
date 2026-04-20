@@ -29,11 +29,6 @@ export const HomeSection = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-transparent" />
         </div>
-        <motion.div
-          className="absolute -bottom-2 -right-2 w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center"
-        >
-          <Terminal className="w-5 h-5 md:w-6 md:h-6 text-blue-500" />
-        </motion.div>
       </motion.div>
 
       <motion.h1
