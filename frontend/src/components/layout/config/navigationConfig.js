@@ -63,7 +63,7 @@ export const sections = {
   },
   blog: {
     icon: Bot,
-    title: 'Budling AI agents for testing - new',
+    title: 'Building AI-Powered test automation agents',
     path: '/blog',
     color: 'from-blue-400 to-indigo-500'
   }
