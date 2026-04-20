@@ -47,7 +47,7 @@ export const ChatBox = () => {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto mt-8 mb-16">
+    <div className="w-full max-w-3xl mx-auto mt-2 mb-16">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
