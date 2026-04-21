@@ -42,7 +42,13 @@ export const HomeSection = () => {
       
       <IntroSection />
 
-      <p className="text-2xl md:text-3xl font-bold text-green-400 mt-1 mb-1 tracking-wide drop-shadow-[0_0_8px_rgba(74,222,128,0.5)] transition-transform duration-200 hover:scale-110 cursor-default">Open to work</p>
+      <div className="inline-flex items-center gap-2 px-4 py-1.5 mt-1 mb-1 rounded-full border border-green-400/40 bg-green-400/10 backdrop-blur-sm shadow-[0_0_12px_rgba(74,222,128,0.25)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(74,222,128,0.45)] cursor-default group">
+        <span className="relative flex h-2.5 w-2.5">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-400"></span>
+        </span>
+        <p className="text-base font-semibold text-green-400 tracking-widest uppercase">Open to work</p>
+      </div>
 
       <ChatBox />
 
