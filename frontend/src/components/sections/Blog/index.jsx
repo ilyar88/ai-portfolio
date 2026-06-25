@@ -14,7 +14,7 @@ export const BlogSection = () => {
       exit={{ opacity: 0 }}
       className="flex flex-col items-center justify-center min-h-[50vh]"
     >
-      <img src={images[index]} alt="Blog" className="w-[800px] h-[520px] object-cover rounded-xl mb-4" />
+      <img src={images[index]} alt="Blog" className="rounded-xl mb-4" />
       <div className="flex gap-6">
         <button onClick={() => setIndex((index - 1 + images.length) % images.length)} className="text-4xl text-green-500">←</button>
         <button onClick={() => setIndex((index + 1) % images.length)} className="text-4xl text-green-500">→</button>
