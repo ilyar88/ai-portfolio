@@ -1,8 +1,11 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 
-const imageModules = import.meta.glob('/public/AI pictures/*.png', { eager: true })
-const images = Object.keys(imageModules).map(path => path.replace('/public', ''))
+const images = [
+  '/AI pictures/AutoGen Studio.png',
+  '/AI pictures/Claude desktop.png',
+  '/AI pictures/MCP agents.png',
+]
 
 export const BlogSection = () => {
   const [index, setIndex] = useState(0)
