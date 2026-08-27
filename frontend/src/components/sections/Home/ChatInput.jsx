@@ -31,7 +31,7 @@ export const ChatInput = ({ input, setInput, isLoading, onSubmit, onStop }) => {
         type="button"
         aria-label="Voice input"
         disabled={isLoading}
-        className="flex-shrink-0 text-gray-400 hover:text-orange-300 p-3 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="flex-shrink-0 text-orange-300/90 bg-orange-400/10 ring-1 ring-orange-400/30 hover:text-orange-200 hover:bg-orange-400/20 p-3 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <Mic className="w-5 h-5" />
       </button>
