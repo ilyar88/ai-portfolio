@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Square } from 'lucide-react';
+import { Send, Square, Mic } from 'lucide-react';
 import { getChatConfig } from '../../../config/configLoader';
 
 export const ChatInput = ({ input, setInput, isLoading, onSubmit, onStop }) => {
@@ -27,6 +27,15 @@ export const ChatInput = ({ input, setInput, isLoading, onSubmit, onStop }) => {
         disabled={isLoading}
       />
       
+      <button
+        type="button"
+        aria-label="Voice input"
+        disabled={isLoading}
+        className="flex-shrink-0 text-gray-400 hover:text-orange-300 p-3 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        <Mic className="w-5 h-5" />
+      </button>
+
       <AnimatePresence mode="wait">
         {isLoading ? (
           <motion.button
