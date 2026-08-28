@@ -1,5 +1,6 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useStreamingChat } from '../../../hooks/useStreamingChat';
+import { useVoiceChat } from '../../../hooks/useVoiceChat';
 import { Bot, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChatMessage } from './ChatMessage';
@@ -10,10 +11,31 @@ import { getPersonalInfo } from '../../../config/configLoader';
 export const ChatBox = () => {
   const [input, setInput] = useState('');
   const [userEngaged, setUserEngaged] = useState(false);
-  const { messages, isLoading, error, sendMessage, stopAnswering } = useStreamingChat();
+  const { messages, isLoading, error, sendMessage, stopAnswering, addMessage, updateLastMessage } = useStreamingChat();
   const messagesEndRef = useRef(null);
   const chatContainerRef = useRef(null);
   const lastMessageCountRef = useRef(messages.length);
+  const voiceTurnRef = useRef({ user: '', model: '' });
+
+  // Stream Gemini's live voice transcripts into the same message list.
+  const handleVoiceEvent = useCallback((evt) => {
+    const turn = voiceTurnRef.current;
+    if (evt.type === 'user' && evt.text) {
+      setUserEngaged(true);
+      const isNew = turn.user === '';
+      turn.user += evt.text;
+      isNew ? addMessage({ role: 'user', content: turn.user }) : updateLastMessage(turn.user, false);
+    } else if (evt.type === 'model' && evt.text) {
+      const isNew = turn.model === '';
+      turn.model += evt.text;
+      isNew ? addMessage({ role: 'assistant', content: turn.model, isTyping: true }) : updateLastMessage(turn.model, true);
+    } else if (evt.type === 'turn_complete') {
+      if (turn.model) updateLastMessage(turn.model, false);
+      voiceTurnRef.current = { user: '', model: '' };
+    }
+  }, [addMessage, updateLastMessage]);
+
+  const { status: voiceStatus, toggle: toggleVoice } = useVoiceChat({ onEvent: handleVoiceEvent });
   
   const personalInfo = getPersonalInfo();
   const firstName = personalInfo?.name?.split(' ')[0] || 'AI';
@@ -176,6 +198,8 @@ export const ChatBox = () => {
             isLoading={isLoading}
             onSubmit={handleSubmit}
             onStop={stopAnswering}
+            voiceStatus={voiceStatus}
+            onVoiceToggle={toggleVoice}
           />
         </div>
       </motion.div>
