@@ -8,6 +8,8 @@ export const useStreamingChat = () => {
   const [error, setError] = useState(null)
   const { sessionId, startNewSession } = useSession()
   const { messages, addMessage, updateLastMessage, resetMessages } = useMessages()
+  // addMessage / updateLastMessage are also returned so the voice chat can
+  // stream Gemini's live transcripts into the same message list.
   const shouldStopRef = useRef(false)
 
   const stopAnswering = useCallback(() => {
@@ -78,6 +80,8 @@ export const useStreamingChat = () => {
     sendMessage,
     sessionId,
     startNewChat,
-    stopAnswering
+    stopAnswering,
+    addMessage,
+    updateLastMessage
   }
 } 
