@@ -12,7 +12,19 @@ from app.middleware.rate_limiter import RateLimiter
 from app.middleware.rate_limit_middleware import RateLimitMiddleware
 from slowapi import Limiter
 from slowapi.util import get_remote_address
-
+def _llm_api_key() -> str:
+    """API key for the LLM + embeddings endpoint. Accepts the Gemini key or, for
+    backwards compatibility, the older LLM_ROUTER_API_KEY / OPENAI_API_KEY names."""
+    key = (
+        os.getenv("GEMINI_API_KEY")
+        or os.getenv("LLM_ROUTER_API_KEY")
+        or os.getenv("OPENAI_API_KEY")
+    )
+    if not key:
+        raise RuntimeError(
+            "No LLM API key set - define GEMINI_API_KEY (or LLM_ROUTER_API_KEY / OPENAI_API_KEY)."
+        )
+    return key
 def create_app() -> FastAPI:
     """Creates and configures the FastAPI application with all middleware"""
     app = FastAPI()
@@ -80,7 +92,7 @@ def openai_client() -> OpenAI:
     """Creates OpenAI-compatible client instance"""
     return OpenAI(
         base_url=os.getenv("LLM_ROUTER_URL"),
-        api_key=os.getenv("GEMINI_API_KEY")
+        api_key=_llm_api_key()
     )
 
 @lru_cache()
@@ -95,7 +107,7 @@ def embeddings() -> OpenAIEmbeddings:
     dimensions = int(os.getenv("EMBEDDING_DIMENSIONS", "1536"))
     return OpenAIEmbeddings(
         model=os.getenv("EMBEDDING_MODEL"),
-        openai_api_key=os.getenv("GEMINI_API_KEY"),
+        openai_api_key=_llm_api_key(),
         base_url=os.getenv("EMBEDDING_API_BASE") or os.getenv("LLM_ROUTER_URL"),
         dimensions=dimensions,
         # non-OpenAI endpoints reject tiktoken token-array input; send raw strings
