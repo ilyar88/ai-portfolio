@@ -4,6 +4,12 @@ import ReactMarkdown from 'react-markdown';
 import { RateLimitCountdown } from './RateLimitCountdown';
 import { TypingIndicator } from './TypingIndicator';
 
+// Force RTL for messages containing Hebrew/Arabic/Syriac, else let the browser
+// auto-detect. dir="auto" alone fails when a Hebrew line starts with a Latin
+// name or digit, leaving the bubble left-aligned.
+const RTL_RE = /[֐-׿؀-ۿ܀-ݏ]/;
+const dirFor = (text) => (RTL_RE.test(text || '') ? 'rtl' : 'auto');
+
 export const ChatMessage = ({ message }) => {
   // If this is a typing message from the assistant with no content, render the standalone TypingIndicator
   if (message.role === 'assistant' && message.isTyping && !message.content) {
@@ -57,13 +63,13 @@ const MessageContent = ({ message }) => (
 );
 
 const UserMessage = ({ content }) => (
-  <p className="leading-relaxed text-left whitespace-pre-wrap break-words">
+  <p dir={dirFor(content)} className="leading-relaxed text-start whitespace-pre-wrap break-words">
     {content}
   </p>
 );
 
 const AssistantMessage = ({ message }) => (
-  <div className="markdown-content w-full">
+  <div dir={dirFor(message.content)} className="markdown-content w-full text-start">
     <ReactMarkdown
       components={{
         p: 'p',
