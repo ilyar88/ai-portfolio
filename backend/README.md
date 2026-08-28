@@ -35,6 +35,14 @@
 
 7. Visit http://localhost:8000/docs and enjoy! 🎉
 
+### 🎤 Voice chat (Gemini Live)
+
+The `/voice` WebSocket endpoint bridges the browser microphone to the Google
+Gemini Live API for real-time voice-to-voice chat (triggered by the mic button in
+the frontend). Set `GEMINI_API_KEY` in your `.env` to enable it. Gemini is
+instructed with the same markdown knowledge base in `docs/` that powers the text
+chat.
+
 ## 🐳 Docker Compose
 
 ```bash
