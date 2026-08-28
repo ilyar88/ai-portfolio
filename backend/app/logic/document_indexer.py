@@ -12,8 +12,11 @@ class DocumentIndexer:
         )
 
     def calculate_content_hash(self, content: str) -> str:
-        """Calculate MD5 hash of document content"""
-        return hashlib.md5(content.encode('utf-8')).hexdigest()
+        """MD5 of the content plus the embedding model, so switching embedding
+        models invalidates stored chunks and forces a re-index (stored vectors
+        from a different model live in an incompatible vector space)."""
+        model = getattr(self.embeddings, "model", "") or ""
+        return hashlib.md5(f"{model}\n{content}".encode('utf-8')).hexdigest()
 
     def process_markdown(self, file_path: str) -> List[dict]:
         """Process markdown file into chunks with embeddings"""
