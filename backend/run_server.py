@@ -1,6 +1,7 @@
 import os
 from app import factory
 from app.controllers.chat_router import ChatRouter
+from app.controllers.voice_router import VoiceRouter
 from app.logs.logger import get_logger
 from app.startup.documents.init_documents import init_documents
 from dotenv import load_dotenv
@@ -21,7 +22,8 @@ async def create_application():
     chat_service = factory.chat_service()
     router = ChatRouter(chat_service=chat_service)
     app.include_router(router=router.router)
-    
+    app.include_router(router=VoiceRouter().router)
+
     return app
 
 async def run_server():
