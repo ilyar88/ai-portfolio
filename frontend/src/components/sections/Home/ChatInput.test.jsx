@@ -21,7 +21,7 @@ describe('ChatInput', () => {
     expect(screen.getByPlaceholderText('Ask me anything about Ilya...')).toBeInTheDocument();
     
     // Check that the submit button is rendered
-    const submitButton = screen.getByRole('button', { type: 'submit' });
+    const submitButton = screen.getByRole('button', { name: /send message/i });
     expect(submitButton).toBeInTheDocument();
     expect(submitButton).toBeDisabled(); // Initially disabled because input is empty
   });
@@ -30,7 +30,7 @@ describe('ChatInput', () => {
     renderWithConfig(<ChatInput {...defaultProps} input="Test message" />);
     
     // Check that the submit button is enabled
-    const submitButton = screen.getByRole('button', { type: 'submit' });
+    const submitButton = screen.getByRole('button', { name: /send message/i });
     expect(submitButton).not.toBeDisabled();
   });
   
@@ -39,7 +39,7 @@ describe('ChatInput', () => {
     
     // Check that the stop button is shown instead of submit button
     expect(screen.queryByRole('button', { name: /send/i })).not.toBeInTheDocument();
-    expect(screen.getByRole('button', { type: 'button' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /stop generating/i })).toBeInTheDocument();
   });
   
   it('calls onSubmit with the input value when form is submitted', () => {
@@ -86,7 +86,7 @@ describe('ChatInput', () => {
     renderWithConfig(<ChatInput {...defaultProps} isLoading={true} onStop={handleStop} />);
     
     // Click the stop button
-    const stopButton = screen.getByRole('button', { type: 'button' });
+    const stopButton = screen.getByRole('button', { name: /stop generating/i });
     fireEvent.click(stopButton);
     
     // Check that onStop was called
