@@ -14,6 +14,7 @@ from app.logic.document_indexer import DocumentIndexer
 def mock_embeddings():
     """Create a mock OpenAIEmbeddings"""
     embeddings = Mock()
+    embeddings.model = "test-embedding-model"
     embeddings.embed_documents = Mock(return_value=[[0.1, 0.2, 0.3], [0.4, 0.5, 0.6]])
     return embeddings
 
@@ -44,13 +45,17 @@ Some content in section 2.
 
 @pytest.mark.unit
 def test_calculate_content_hash(document_indexer):
-    """Test that content hash is calculated correctly"""
+    """Content hash covers both the content and the embedding model"""
     content = "Test content"
-    expected_hash = hashlib.md5(content.encode('utf-8')).hexdigest()
-    
+    expected_hash = hashlib.md5(f"test-embedding-model\n{content}".encode('utf-8')).hexdigest()
+
     result = document_indexer.calculate_content_hash(content)
-    
+
     assert result == expected_hash
+
+    # switching embedding model must change the hash (forces re-index)
+    document_indexer.embeddings.model = "another-model"
+    assert document_indexer.calculate_content_hash(content) != expected_hash
 
 @pytest.mark.unit
 def test_process_markdown(document_indexer, mock_embeddings, sample_markdown_content):
