@@ -80,15 +80,26 @@ def openai_client() -> OpenAI:
     """Creates OpenAI-compatible client instance"""
     return OpenAI(
         base_url=os.getenv("LLM_ROUTER_URL"),
-        api_key=os.getenv("LLM_ROUTER_API_KEY")
+        api_key=os.getenv("GEMINI_API_KEY")
     )
 
 @lru_cache()
 def embeddings() -> OpenAIEmbeddings:
-    """Creates and caches embeddings instance"""
+    """Creates and caches embeddings instance.
+
+    Works with any OpenAI-compatible embeddings endpoint (OpenAI, or Gemini via
+    its /v1beta/openai/ base URL). EMBEDDING_API_BASE falls back to LLM_ROUTER_URL.
+    """
+    # Default to 1536 to match the pgvector column (Vector(1536)); a mismatch
+    # would make every chunk insert fail on startup.
+    dimensions = int(os.getenv("EMBEDDING_DIMENSIONS", "1536"))
     return OpenAIEmbeddings(
         model=os.getenv("EMBEDDING_MODEL"),
-        openai_api_key=os.getenv("OPENAI_API_KEY")
+        openai_api_key=os.getenv("GEMINI_API_KEY"),
+        base_url=os.getenv("EMBEDDING_API_BASE") or os.getenv("LLM_ROUTER_URL"),
+        dimensions=dimensions,
+        # non-OpenAI endpoints reject tiktoken token-array input; send raw strings
+        check_embedding_ctx_length=False,
     )
 
 @lru_cache()
