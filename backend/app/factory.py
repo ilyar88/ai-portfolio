@@ -32,10 +32,12 @@ def create_app() -> FastAPI:
     rate_limiter_instance = rate_limiter()
     app.add_middleware(RateLimitMiddleware, rate_limiter=rate_limiter_instance)
     
-    frontend_url = os.getenv("FRONTEND_URL")
+    # FRONTEND_URL may list several allowed origins, comma-separated
+    # (e.g. "https://www.ilyar.dev,https://ilyar.dev").
+    frontend_urls = [u.strip() for u in os.getenv("FRONTEND_URL", "").split(",") if u.strip()]
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=[frontend_url, "http://localhost"],
+        allow_origins=[*frontend_urls, "http://localhost"],
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
