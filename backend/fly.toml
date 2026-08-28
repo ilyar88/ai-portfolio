@@ -22,7 +22,7 @@ primary_region = 'fra'
   POSTGRES_PORT="5432"
   POSTGRES_DB="postgres"
   POSTGRES_USER="postgres"
-  FRONTEND_URL='https://ilyar-portfolio.vercel.app'
+  FRONTEND_URL='https://www.ilyar.dev,https://ilyar.dev'
   GLOBAL_RATE_LIMIT="1000/hour"
   CHAT_RATE_LIMIT="30/minute"
 
