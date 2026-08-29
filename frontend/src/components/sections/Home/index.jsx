@@ -23,7 +23,7 @@ export const HomeSection = () => {
       >
         <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-blue-500 relative">
           <img
-            src="/profile.jpg"
+            src="/profile.jpeg"
             alt={personalInfo.name}
             className="w-full h-full object-cover"
           />
