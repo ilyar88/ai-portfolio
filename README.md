@@ -12,8 +12,9 @@ Create your own engaging, AI-powered conversation portfolio. This open-source pr
 - 🤖 **Interactive AI Assistant**: Engage visitors with personalized, context-aware conversations
 - 🚀 **Real-time Streaming**: Fluid, chat-like experience with streaming responses
 - 🎨 **Modern UI**: Clean, responsive design focused on conversation
+- 🖼️ **Blog Image Gallery**: Browsable gallery of pictures with large arrow controls (see `frontend/public/AI pictures/`)
 - 🔄 **Easy to Customize**: Create your own from template and modify for your personal brand
-- 🛠 **Modular Architecture**: Built for maintanability and easy extension
+- 🛠 **Modular Architecture**: Built for maintainability and easy extension
 
 ## 🏗 Architecture
 
@@ -34,10 +35,10 @@ graph LR
 ## 🚀 Quick Start
 
 1. Create a new repository from this template and clone it
-2. Add the necessary files to frontend/public and change the config.json file to your own content - [Config Setup Guide](frontend/CONFIGURATION.md)
-2. Run "docker compose build" and then "docker compose up" to start the containers and enjoy it on [localhost](http//:localhost:3000)
-3. Deploy to [fly.io](fly.io) or set up locally- [Backend Setup Guide](backend/README.md)
-4. Deploy to [vercel.com](vercel.com) or set up locally- [Frontend Setup Guide](frontend/README.md)
+2. Add your content: edit `frontend/public/config.json`, and drop blog gallery pictures into `frontend/public/AI pictures/` - [Config Setup Guide](frontend/CONFIGURATION.md)
+3. Run `docker compose build` then `docker compose up`, and open [http://localhost:3000](http://localhost:3000)
+4. Deploy to [fly.io](fly.io) or set up locally - [Backend Setup Guide](backend/README.md)
+5. Deploy to [vercel.com](vercel.com) or set up locally - [Frontend Setup Guide](frontend/README.md)
 
 
 ## 🤝 Contributing
