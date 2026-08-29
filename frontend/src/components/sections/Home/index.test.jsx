@@ -27,7 +27,7 @@ describe('HomeSection', () => {
     const profileImage = screen.getByAltText('Test User');
     expect(profileImage).toBeInTheDocument();
     expect(profileImage.tagName).toBe('IMG');
-    expect(profileImage).toHaveAttribute('src', '/profile.jpg');
+    expect(profileImage).toHaveAttribute('src', '/profile.jpeg');
     
     // Check that the name is rendered
     expect(screen.getByText('Test User')).toBeInTheDocument();
