@@ -23,7 +23,7 @@
 4. Add your personal content:
    - Add `about-me.md` to public folder
    - Add `icon.svg` to public folder
-   - Add `profile.jpg` to public folder
+   - Add `profile.jpeg` to public folder
    - Update `config.json` following the [Config Setup Guide](CONFIGURATION.md)
 
 5. Start development server:
