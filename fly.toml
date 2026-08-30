@@ -7,8 +7,9 @@ app = 'ai-portfolio-ilya'
 primary_region = 'fra'
 
 [build]
-  # Build context is the repo root; deploy with:
-  #   fly deploy --config backend/fly.toml   (from the repo root)
+  # This fly.toml lives at the repo root so the build context includes
+  # frontend/public (bundled into the image by backend/Dockerfile).
+  # Deploy with a plain `fly deploy` from the repo root.
   dockerfile = "backend/Dockerfile"
 
 [env]
