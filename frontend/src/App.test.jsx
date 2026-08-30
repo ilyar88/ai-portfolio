@@ -22,8 +22,8 @@ vi.mock('./components/sections/Projects', () => ({
   ProjectsSection: () => <div data-testid="projects-section">Projects Section</div>
 }));
 
-vi.mock('./components/sections/Blog', () => ({
-  BlogSection: () => <div data-testid="blog-section">Blog Section</div>
+vi.mock('./components/sections/Files', () => ({
+  FilesSection: () => <div data-testid="files-section">Files Section</div>
 }));
 
 // Mock useNavigate for testing routes
