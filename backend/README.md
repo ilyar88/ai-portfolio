@@ -46,18 +46,16 @@ chat.
 ### 📂 File browser
 
 The `/files/list` and `/files/raw` endpoints expose a **read-only** browser for a
-single directory, used by the "Knowledge and experience" page in the frontend. It
-defaults to `frontend/public` (resolved relative to the repo root). Override it
-with `FILES_ROOT=/absolute/path` in your `.env`. When the root has subfolders it
-lists only those (files appear once you open a folder); a flat root lists its
-files directly. Every request is confined to that root (no path traversal) and
-only GET is supported.
+single directory, used by the "Knowledge and experience" page in the frontend.
+When run directly (`run_server.py`) it defaults to `frontend/public` relative to
+the repo root; the Docker image bundles that folder at `/srv/files` and sets
+`FILES_ROOT` to it. Override `FILES_ROOT=/absolute/path` in your `.env` to browse
+elsewhere. When the root has subfolders it lists only those (files appear once
+you open a folder); a flat root lists its files directly. Every request is
+confined to that root (no path traversal) and only GET is supported.
 
-**Production:** the Fly/Docker image is built from `backend/` only, so
-`frontend/public` is not present there. To use the browser in production, make
-the folder available in the image and point `FILES_ROOT` at it - e.g. build with
-the repo root as the Docker context and `COPY frontend/public` into the image, or
-attach it as a Fly volume. Until then `/files` returns 503 in production.
+Because the image needs `frontend/public`, the Docker build context is the **repo
+root** (not `backend/`) - see the Dockerfile and the deploy command below.
 
 If the page shows "Backend has no /files endpoint", you are running an older
 build: restart `run_server.py`, or `docker compose up --build` to rebuild the
@@ -72,6 +70,10 @@ docker compose build
 # Start the services
 docker compose up
 ```
+
+> The `backend` service builds with the repo root as context (so `frontend/public`
+> can be bundled). Run `docker compose` from wherever the compose file lives - the
+> context paths are already set for both `docker-compose.yml` files.
 
 ## 🚀 Deployment on fly.io
 
@@ -107,9 +109,9 @@ docker compose up
 
 6. Update the `fly.toml` file with your app, postgres, and redis details
 
-7. Deploy:
+7. Deploy **from the repo root** (the build context must include `frontend/public`):
    ```bash
-   fly deploy
+   fly deploy --config backend/fly.toml
    ```
 
 8. Visit your app at https://your-app-name.fly.dev/docs 🎉
