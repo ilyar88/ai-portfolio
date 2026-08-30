@@ -19,10 +19,10 @@ vi.mock('../config/navigationConfig', () => {
         title: 'Projects',
         path: '/projects'
       },
-      blog: {
-        icon: vi.fn(() => <div data-testid="blog-icon">Blog Icon</div>),
-        title: 'Blog',
-        path: '/blog'
+      files: {
+        icon: vi.fn(() => <div data-testid="files-icon">Files Icon</div>),
+        title: 'Knowledge and experience',
+        path: '/files'
       }
     },
     navConfig: {
@@ -78,14 +78,14 @@ describe('MobileNav', () => {
     renderWithRouterAndConfig(<MobileNav isMenuOpen={true} setIsMenuOpen={setIsMenuOpen} />);
     expect(screen.getByText('About Me')).toBeInTheDocument();
     expect(screen.getByText('Projects')).toBeInTheDocument();
-    expect(screen.getByText('Blog')).toBeInTheDocument();
+    expect(screen.getByText('Knowledge and experience')).toBeInTheDocument();
   });
   
   it('renders icons for each navigation link when open', () => {
     renderWithRouterAndConfig(<MobileNav isMenuOpen={true} setIsMenuOpen={setIsMenuOpen} />);
     expect(screen.getByTestId('about-icon')).toBeInTheDocument();
     expect(screen.getByTestId('projects-icon')).toBeInTheDocument();
-    expect(screen.getByTestId('blog-icon')).toBeInTheDocument();
+    expect(screen.getByTestId('files-icon')).toBeInTheDocument();
   });
   
   it('applies active class to the active link when open', () => {
