@@ -6,10 +6,20 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
  * @returns {Promise<{path:string, parent:string|null, breadcrumb:{name:string,path:string}[], entries:object[]}>}
  */
 export const listDir = async (path = '') => {
-  const res = await fetch(`${BACKEND_URL}/files/list?path=${encodeURIComponent(path)}`);
+  let res;
+  try {
+    res = await fetch(`${BACKEND_URL}/files/list?path=${encodeURIComponent(path)}`);
+  } catch {
+    throw new Error(`Can't reach the file service at ${BACKEND_URL} - is the backend running?`);
+  }
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
-    throw new Error(err.detail || 'Failed to load folder');
+    // FastAPI answers unknown routes with {"detail":"Not Found"} - the backend is
+    // up but has no /files endpoint (older build); its own errors say "... not found".
+    if (res.status === 404 && err.detail === 'Not Found') {
+      throw new Error('Backend has no /files endpoint - rebuild/restart it to pick up the file browser routes.');
+    }
+    throw new Error(err.detail || `File service error (${res.status})`);
   }
   return res.json();
 };
