@@ -107,11 +107,13 @@ docker compose up
    fly secrets set REDIS_URL=<YOUR_REDIS_URL>
    ```
 
-6. Update the `fly.toml` file with your app, postgres, and redis details
+6. Update the `fly.toml` file (at the **repo root**) with your app, postgres, and
+   redis details
 
-7. Deploy **from the repo root** (the build context must include `frontend/public`):
+7. Deploy **from the repo root** - the build context must include `frontend/public`,
+   which is why `fly.toml` sits there rather than in `backend/`:
    ```bash
-   fly deploy --config backend/fly.toml
+   fly deploy
    ```
 
 8. Visit your app at https://your-app-name.fly.dev/docs 🎉
