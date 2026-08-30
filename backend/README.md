@@ -47,10 +47,13 @@ chat.
 
 The `/files/list` and `/files/raw` endpoints expose a **read-only** browser for a
 single directory, used by the "Knowledge and experience" page in the frontend. It
-defaults to `frontend/public`; override it with `FILES_ROOT=/absolute/path` in
-your `.env`. The root lists folders only (files appear once you open a folder).
-Every request is confined to that root (no path traversal) and only GET is
-supported.
+defaults to this backend's `docs/` folder - which ships in every environment
+(local, Docker, Fly), so the browser works in production with no extra wiring.
+Override it with `FILES_ROOT=/absolute/path` in your `.env` (e.g. point it at
+`../frontend/public` in local dev). When the root has subfolders it lists only
+those (files appear once you open a folder); a flat root lists its files
+directly. Every request is confined to that root (no path traversal) and only GET
+is supported.
 
 If the page shows "Backend has no /files endpoint", you are running an older
 build: restart `run_server.py`, or `docker compose up --build` to rebuild the
