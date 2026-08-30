@@ -43,6 +43,15 @@ the frontend). Set `GEMINI_API_KEY` in your `.env` to enable it. Gemini is
 instructed with the same markdown knowledge base in `docs/` that powers the text
 chat.
 
+### 📂 File browser
+
+The `/files/list` and `/files/raw` endpoints expose a **read-only** browser for a
+single directory, used by the "Knowledge and experience" page in the frontend. It
+defaults to `frontend/public`; override it with `FILES_ROOT=/absolute/path` in
+your `.env`. The root lists folders only (files appear once you open a folder).
+Every request is confined to that root (no path traversal) and only GET is
+supported.
+
 ## 🐳 Docker Compose
 
 ```bash
