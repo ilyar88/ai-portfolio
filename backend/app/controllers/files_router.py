@@ -11,19 +11,21 @@ logger = get_logger(__name__)
 
 
 def _default_root() -> Path:
-    """`frontend/public` relative to the repo root.
+    """The backend's own ``docs/`` folder.
 
-    This file lives at ``backend/app/controllers/files_router.py`` so the repo
-    root is three parents up.
+    ``backend/app/controllers/files_router.py`` -> ``backend/docs``. Unlike
+    ``frontend/public`` this ships in every environment (local, Docker, Fly), so
+    the browser works in production with no extra wiring.
     """
-    return Path(__file__).resolve().parents[3] / "frontend" / "public"
+    return Path(__file__).resolve().parents[2] / "docs"
 
 
 class FilesRouter:
     """Read-only file browser scoped to a single root directory.
 
-    The root defaults to ``frontend/public`` and can be overridden with the
-    ``FILES_ROOT`` environment variable. Only GET access is exposed and every
+    The root defaults to the backend's ``docs/`` folder and can be overridden
+    with the ``FILES_ROOT`` environment variable (e.g. point it at
+    ``frontend/public`` in local dev). Only GET access is exposed and every
     request is confined to the root (no path traversal).
     """
 
@@ -75,7 +77,8 @@ class FilesRouter:
     async def _list(self, path: str = Query("")):
         """List one directory: folders first, then files, alphabetically.
 
-        The root only lists folders; files show up once you open a folder.
+        When the root has subfolders it lists only those (files show up once you
+        open a folder); a flat root lists its files directly.
         """
         target = self._resolve(path)
         if not target.is_dir():
@@ -85,7 +88,9 @@ class FilesRouter:
         except OSError:
             raise HTTPException(status_code=403, detail="Cannot read directory")
         if target == self.root:
-            children = [c for c in children if c.is_dir()]
+            subdirs = [c for c in children if c.is_dir()]
+            if subdirs:
+                children = subdirs
         children.sort(key=lambda p: (p.is_file(), p.name.lower()))
 
         rel = target.relative_to(self.root)
@@ -102,6 +107,7 @@ class FilesRouter:
             crumbs.append({"name": part, "path": acc})
 
         return {
+            "root": self.root.name,
             "path": rel_str,
             "parent": parent,
             "breadcrumb": crumbs,
