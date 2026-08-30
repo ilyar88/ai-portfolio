@@ -63,6 +63,14 @@ async def test_list_subdirectory(files_router):
 
 
 @pytest.mark.unit
+async def test_list_503_when_root_missing(tmp_path, monkeypatch):
+    monkeypatch.setenv("FILES_ROOT", str(tmp_path / "does-not-exist"))
+    with pytest.raises(HTTPException) as exc:
+        await FilesRouter()._list("")
+    assert exc.value.status_code == 503
+
+
+@pytest.mark.unit
 async def test_list_rejects_path_traversal(files_router):
     with pytest.raises(HTTPException) as exc:
         await files_router._list("../../etc")
