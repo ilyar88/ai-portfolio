@@ -32,11 +32,24 @@ async def test_list_root(files_router):
     result = await files_router._list("")
     assert result["path"] == ""
     assert result["parent"] is None
+    assert result["root"]  # the root directory's name, for the breadcrumb
     names = [e["name"] for e in result["entries"]]
-    # root lists folders only; hidden entries skipped
+    # a root with subfolders lists folders only; hidden entries skipped
     assert names == ["docs"]
     assert result["entries"][0]["type"] == "dir"
     assert result["entries"][0]["itemCount"] == 1
+
+
+@pytest.mark.unit
+async def test_flat_root_lists_files(tmp_path, monkeypatch):
+    (tmp_path / "Resume.md").write_text("cv")
+    (tmp_path / "notes.md").write_text("notes")
+    monkeypatch.setenv("FILES_ROOT", str(tmp_path))
+
+    result = await FilesRouter()._list("")
+
+    # no subfolders -> the files are shown directly (sorted case-insensitively)
+    assert [e["name"] for e in result["entries"]] == ["notes.md", "Resume.md"]
 
 
 @pytest.mark.unit
