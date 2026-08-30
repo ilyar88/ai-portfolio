@@ -192,3 +192,4 @@ dist-ssr
 # SQLite DataBase
 *.db
 nul
+.claude/
