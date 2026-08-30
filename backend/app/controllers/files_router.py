@@ -11,21 +11,20 @@ logger = get_logger(__name__)
 
 
 def _default_root() -> Path:
-    """The backend's own ``docs/`` folder.
+    """`frontend/public` relative to the repo root.
 
-    ``backend/app/controllers/files_router.py`` -> ``backend/docs``. Unlike
-    ``frontend/public`` this ships in every environment (local, Docker, Fly), so
-    the browser works in production with no extra wiring.
+    ``backend/app/controllers/files_router.py`` -> repo root is three parents up.
+    In a deployment where that folder is not present, set ``FILES_ROOT`` to a
+    directory that is (see the README).
     """
-    return Path(__file__).resolve().parents[2] / "docs"
+    return Path(__file__).resolve().parents[3] / "frontend" / "public"
 
 
 class FilesRouter:
     """Read-only file browser scoped to a single root directory.
 
-    The root defaults to the backend's ``docs/`` folder and can be overridden
-    with the ``FILES_ROOT`` environment variable (e.g. point it at
-    ``frontend/public`` in local dev). Only GET access is exposed and every
+    The root defaults to ``frontend/public`` and can be overridden with the
+    ``FILES_ROOT`` environment variable. Only GET access is exposed and every
     request is confined to the root (no path traversal).
     """
 
@@ -34,12 +33,17 @@ class FilesRouter:
         configured = os.getenv("FILES_ROOT")
         self.root = Path(configured).resolve() if configured else _default_root().resolve()
         if not self.root.is_dir():
-            logger.warning("FILES_ROOT %s is not a directory - /files will 404", self.root)
+            logger.warning("File browser root %s is not a directory - set FILES_ROOT", self.root)
         self.router.add_api_route("/files/list", self._list, methods=["GET"])
         self.router.add_api_route("/files/raw", self._raw, methods=["GET"])
 
     def _resolve(self, rel: str) -> Path:
         """Resolve a client-supplied relative path inside the root or raise 404."""
+        if not self.root.is_dir():
+            raise HTTPException(
+                status_code=503,
+                detail=f"File browser root {self.root} does not exist - set FILES_ROOT.",
+            )
         rel = (rel or "").strip().replace("\\", "/").lstrip("/")
         target = (self.root / rel).resolve()
         if target != self.root and self.root not in target.parents:
