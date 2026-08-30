@@ -22,14 +22,22 @@ RUN apt-get update \
 # Install pipenv
 RUN pip install --no-cache-dir pipenv
 
+# NOTE: the build context is the repo root (so frontend/public can be copied in).
+# Deploy with:  fly deploy --config backend/fly.toml   (run from the repo root)
+
 # Copy Pipfile and Pipfile.lock
-COPY Pipfile* ./
+COPY backend/Pipfile* ./
 
 # Install dependencies
 RUN pipenv install --system --deploy
 
-# Copy the rest of the application
-COPY . .
+# Copy the backend application
+COPY backend/ .
+
+# Bundle the frontend's public/ folder so the file browser ("Knowledge and
+# experience") can serve it in production. FILES_ROOT points the browser here.
+COPY frontend/public /srv/files
+ENV FILES_ROOT=/srv/files
 
 # Expose the port the app runs on
 EXPOSE 8000
