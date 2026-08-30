@@ -52,6 +52,10 @@ your `.env`. The root lists folders only (files appear once you open a folder).
 Every request is confined to that root (no path traversal) and only GET is
 supported.
 
+If the page shows "Backend has no /files endpoint", you are running an older
+build: restart `run_server.py`, or `docker compose up --build` to rebuild the
+image.
+
 ## 🐳 Docker Compose
 
 ```bash
