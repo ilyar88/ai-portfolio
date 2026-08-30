@@ -153,7 +153,7 @@ export const FilesSection = () => {
       {/* Breadcrumb */}
       <div className="flex items-center gap-1 flex-wrap text-sm mb-4 font-mono">
         <button onClick={() => go('')} className="flex items-center gap-1 text-blue-400 hover:text-blue-300">
-          <Home className="w-4 h-4" /> public
+          <Home className="w-4 h-4" /> {data?.root ?? 'Files'}
         </button>
         {data?.breadcrumb?.map((c) => (
           <span key={c.path} className="flex items-center gap-1">
