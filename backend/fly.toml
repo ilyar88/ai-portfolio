@@ -7,6 +7,9 @@ app = 'ai-portfolio-ilya'
 primary_region = 'fra'
 
 [build]
+  # Build context is the repo root; deploy with:
+  #   fly deploy --config backend/fly.toml   (from the repo root)
+  dockerfile = "backend/Dockerfile"
 
 [env]
   # LLM + embeddings via Gemini's OpenAI-compatible endpoint.
