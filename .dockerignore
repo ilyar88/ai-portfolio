@@ -1,0 +1,39 @@
+# Build context is the repo root (see backend/Dockerfile). Keep it lean:
+# only backend/ and frontend/public are actually COPYd into the image.
+
+# Dependencies / virtualenvs
+**/node_modules
+**/.venv
+**/__pycache__
+*.pyc
+.mypy_cache
+
+# Build output
+**/dist
+**/build
+frontend/dist
+
+# Tests / coverage
+**/coverage
+**/htmlcov
+**/.nyc_output
+.coverage
+.pytest_cache
+
+# VCS / tooling
+.git
+.github
+.claude
+
+# Secrets / local env
+.env
+**/.env
+.env.local
+.env.*.local
+
+# Editor / OS
+.idea
+.vscode
+*.sw?
+.DS_Store
+Thumbs.db
