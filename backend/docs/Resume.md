@@ -28,4 +28,4 @@ Led QA for large-scale on-prem enterprise systems with a strong hands-on focus o
 2023: AWS Certified Cloud Practitioner
 
 ### LANGUAGES
-Hebrew - Native | English - Fluent | Russian - Fluent
+Hebrew - Native | English - Fluent
