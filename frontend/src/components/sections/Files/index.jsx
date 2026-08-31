@@ -72,7 +72,7 @@ const PreviewModal = ({ item, onClose }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4" onClick={onClose}>
       <div
-        className="bg-gray-900 border border-blue-500/30 rounded-lg max-w-3xl w-full max-h-[85vh] overflow-hidden flex flex-col"
+        className="bg-gray-900 border border-blue-500/30 rounded-lg max-w-5xl w-full max-h-[85vh] overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between px-4 py-2 border-b border-blue-500/20">
@@ -90,7 +90,15 @@ const PreviewModal = ({ item, onClose }) => {
           </div>
         </div>
         <div className="overflow-auto p-4">
-          {isImage && <img src={url} alt={item.name} className="max-w-full mx-auto rounded" />}
+          {isImage && (
+            // Drag the bottom-right corner to resize the preview.
+            <div
+              className="resize overflow-auto mx-auto rounded border border-blue-500/20 bg-black/30"
+              style={{ width: '38rem', height: '60vh', maxWidth: '100%', minWidth: '12rem', minHeight: '8rem' }}
+            >
+              <img src={url} alt={item.name} className="w-full h-full object-contain" />
+            </div>
+          )}
           {isPdf && <iframe src={url} title={item.name} className="w-full h-[70vh] rounded bg-white" />}
           {isText && (
             <pre className="text-xs text-gray-300 whitespace-pre-wrap break-words">{text ?? 'Loading…'}</pre>
