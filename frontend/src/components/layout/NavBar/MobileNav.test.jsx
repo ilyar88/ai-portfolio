@@ -16,7 +16,7 @@ vi.mock('../config/navigationConfig', () => {
       },
       projects: {
         icon: vi.fn(() => <div data-testid="projects-icon">Projects Icon</div>),
-        title: 'Projects',
+        title: 'GitHub projects',
         path: '/projects'
       },
       files: {
@@ -77,7 +77,7 @@ describe('MobileNav', () => {
   it('renders navigation links when isMenuOpen is true', () => {
     renderWithRouterAndConfig(<MobileNav isMenuOpen={true} setIsMenuOpen={setIsMenuOpen} />);
     expect(screen.getByText('About Me')).toBeInTheDocument();
-    expect(screen.getByText('Projects')).toBeInTheDocument();
+    expect(screen.getByText('GitHub projects')).toBeInTheDocument();
     expect(screen.getByText('Knowledge and experience')).toBeInTheDocument();
   });
   
