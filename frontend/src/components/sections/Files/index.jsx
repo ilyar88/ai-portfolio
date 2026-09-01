@@ -6,120 +6,17 @@
  *
  * The current folder lives in the URL (`/files/<path>`), so the browser back
  * button and deep links work. Clicking a folder row navigates into it; clicking
- * a file row opens a preview (image / PDF / text) with a download option.
+ * a file row opens a preview ({@link PreviewModal}).
+ *
+ * Helpers live in `./fileHelpers`; the preview dialog in `./PreviewModal`.
  */
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import PropTypes from 'prop-types'
-import { ArrowLeft, ChevronRight, Download, File, FileText, Folder, Home, Image as ImageIcon, X } from 'lucide-react'
+import { ArrowLeft, ChevronRight, Download, Home } from 'lucide-react'
 import { fileUrl, listDir } from '../../../services/filesService'
-
-const IMAGE_EXT = ['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg', 'bmp', 'ico']
-const TEXT_EXT = ['md', 'txt', 'json', 'log', 'csv', 'yml', 'yaml', 'xml', 'js', 'jsx', 'css', 'html']
-
-const formatSize = (bytes) => {
-  if (bytes == null) return '—'
-  const units = ['B', 'KB', 'MB', 'GB']
-  let n = bytes
-  let i = 0
-  while (n >= 1024 && i < units.length - 1) {
-    n /= 1024
-    i += 1
-  }
-  return `${n.toFixed(i > 0 && n < 10 ? 1 : 0)} ${units[i]}`
-}
-
-const formatDate = (iso) => {
-  if (!iso) return '—'
-  const d = new Date(iso)
-  return Number.isNaN(d.getTime())
-    ? '—'
-    : d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
-}
-
-const typeLabel = (entry) => {
-  if (entry.type === 'dir') return 'Folder'
-  if (!entry.ext) return 'File'
-  if (IMAGE_EXT.includes(entry.ext)) return `${entry.ext.toUpperCase()} image`
-  return `${entry.ext.toUpperCase()} file`
-}
-
-const iconFor = (entry) => {
-  if (entry.type === 'dir') return Folder
-  if (IMAGE_EXT.includes(entry.ext)) return ImageIcon
-  if (entry.ext === 'pdf' || TEXT_EXT.includes(entry.ext)) return FileText
-  return File
-}
-
-const PreviewModal = ({ item, onClose }) => {
-  const [text, setText] = useState(null)
-  const url = fileUrl(item.path)
-  const isImage = IMAGE_EXT.includes(item.ext)
-  const isPdf = item.ext === 'pdf'
-  const isText = TEXT_EXT.includes(item.ext)
-
-  useEffect(() => {
-    if (!isText) return undefined
-    let active = true
-    fetch(url)
-      .then((r) => r.text())
-      .then((t) => { if (active) setText(t) })
-      .catch(() => { if (active) setText('Failed to load file.') })
-    return () => { active = false }
-  }, [url, isText])
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4" onClick={onClose}>
-      <div
-        className="bg-gray-900 border border-blue-500/30 rounded-lg max-w-5xl w-full max-h-[85vh] overflow-hidden flex flex-col"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="flex items-center justify-between px-4 py-2 border-b border-blue-500/20">
-          <span className="text-sm text-gray-200 font-mono truncate">{item.name}</span>
-          <div className="flex items-center gap-3">
-            <a
-              href={fileUrl(item.path, true)}
-              className="text-blue-400 hover:text-blue-300 flex items-center gap-1 text-sm"
-            >
-              <Download className="w-4 h-4" /> Download
-            </a>
-            <button onClick={onClose} className="text-gray-400 hover:text-white" aria-label="Close">
-              <X className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-        <div className="overflow-auto p-4">
-          {isImage && (
-            // Drag the bottom-right corner to resize the preview.
-            <div
-              className="resize overflow-auto mx-auto rounded border border-blue-500/20 bg-black/30"
-              style={{ width: '38rem', height: '60vh', maxWidth: '100%', minWidth: '12rem', minHeight: '8rem' }}
-            >
-              <img src={url} alt={item.name} className="w-full h-full object-contain" />
-            </div>
-          )}
-          {isPdf && <iframe src={url} title={item.name} className="w-full h-[70vh] rounded bg-white" />}
-          {isText && (
-            <pre className="text-xs text-gray-300 whitespace-pre-wrap break-words">{text ?? 'Loading…'}</pre>
-          )}
-          {!isImage && !isPdf && !isText && (
-            <p className="text-gray-400 text-sm">No preview available. Use Download to view this file.</p>
-          )}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-PreviewModal.propTypes = {
-  item: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    path: PropTypes.string.isRequired,
-    ext: PropTypes.string,
-  }).isRequired,
-  onClose: PropTypes.func.isRequired,
-}
+import { formatDate, formatSize, iconFor, typeLabel } from './fileHelpers'
+import { PreviewModal } from './PreviewModal'
 
 export const FilesSection = () => {
   const params = useParams()
@@ -135,6 +32,7 @@ export const FilesSection = () => {
     let active = true
     setLoading(true)
     setError(null)
+    setPreview(null)
     listDir(path)
       .then((res) => { if (active) setData(res) })
       .catch((e) => { if (active) setError(e.message) })
@@ -144,10 +42,12 @@ export const FilesSection = () => {
 
   const go = useCallback((p) => navigate(`/files${p ? `/${p}` : ''}`), [navigate])
 
+  // Files in the current folder - the preview modal pages back/forward through these.
+  const fileEntries = (data?.entries ?? []).filter((e) => e.type === 'file')
+
   const openEntry = (entry) => {
-    const childPath = path ? `${path}/${entry.name}` : entry.name
-    if (entry.type === 'dir') go(childPath)
-    else setPreview({ name: entry.name, ext: entry.ext, path: childPath })
+    if (entry.type === 'dir') go(path ? `${path}/${entry.name}` : entry.name)
+    else setPreview(entry.name)
   }
 
   return (
@@ -253,7 +153,14 @@ export const FilesSection = () => {
         )}
       </div>
 
-      {preview && <PreviewModal item={preview} onClose={() => setPreview(null)} />}
+      {preview != null && fileEntries.length > 0 && (
+        <PreviewModal
+          files={fileEntries}
+          dirPath={path}
+          startName={preview}
+          onClose={() => setPreview(null)}
+        />
+      )}
     </motion.div>
   )
 }
