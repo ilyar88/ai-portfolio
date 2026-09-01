@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { screen } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 import '../../../test/mocks';
 import { renderWithConfig } from '../../../test/testUtils';
 import { FilesSection } from './index';
@@ -65,5 +65,26 @@ describe('FilesSection', () => {
     renderWithConfig(<FilesSection />);
 
     expect(await screen.findByText('Path not found')).toBeInTheDocument();
+  });
+
+  it('pages forward/back through the folder files in the preview', async () => {
+    vi.mocked(listDir).mockResolvedValue({
+      ...listing,
+      entries: [
+        { name: 'one.png', type: 'file', size: 10, modified: null, ext: 'png', itemCount: null },
+        { name: 'two.png', type: 'file', size: 20, modified: null, ext: 'png', itemCount: null },
+      ],
+    });
+
+    renderWithConfig(<FilesSection />);
+    fireEvent.click(await screen.findByText('one.png'));
+
+    expect(screen.getByText('1/2')).toBeInTheDocument();
+    fireEvent.click(screen.getByLabelText('Next file'));
+    expect(screen.getByText('2/2')).toBeInTheDocument();
+    fireEvent.click(screen.getByLabelText('Next file')); // wraps around
+    expect(screen.getByText('1/2')).toBeInTheDocument();
+    fireEvent.click(screen.getByLabelText('Previous file'));
+    expect(screen.getByText('2/2')).toBeInTheDocument();
   });
 });
