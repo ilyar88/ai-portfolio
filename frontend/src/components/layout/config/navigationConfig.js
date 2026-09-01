@@ -57,7 +57,7 @@ export const sections = {
   },
   projects: {
     icon: Code,
-    title: 'Projects',
+    title: 'GitHub projects',
     path: '/projects',
     color: 'from-emerald-500 to-green-500'
   },
