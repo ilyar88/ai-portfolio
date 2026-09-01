@@ -16,7 +16,7 @@ vi.mock('../config/navigationConfig', () => {
       },
       projects: {
         icon: vi.fn(() => <div data-testid="projects-icon">Projects Icon</div>),
-        title: 'Projects',
+        title: 'GitHub projects',
         path: '/projects'
       },
       files: {
@@ -57,7 +57,7 @@ describe('DesktopNav', () => {
   
   it('renders all navigation links', () => {
     expect(screen.getByText('About Me')).toBeInTheDocument();
-    expect(screen.getByText('Projects')).toBeInTheDocument();
+    expect(screen.getByText('GitHub projects')).toBeInTheDocument();
     expect(screen.getByText('Knowledge and experience')).toBeInTheDocument();
   });
   
