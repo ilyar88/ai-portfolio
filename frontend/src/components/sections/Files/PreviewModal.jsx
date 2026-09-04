@@ -5,11 +5,12 @@
  * through `files` - the other files in the same folder - wrapping at both ends.
  * Escape closes. Images sit in a resizable box (drag the bottom-right corner).
  */
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
+import { renderAsync } from 'docx-preview'
 import { ChevronLeft, ChevronRight, Download, X } from 'lucide-react'
 import { fileUrl } from '../../../services/filesService'
-import { IMAGE_EXT, TEXT_EXT } from './fileHelpers'
+import { IMAGE_EXT, TEXT_EXT, WORD_EXT } from './fileHelpers'
 
 export const PreviewModal = ({ files, dirPath, startName, onClose }) => {
   const [idx, setIdx] = useState(() => {
@@ -17,6 +18,7 @@ export const PreviewModal = ({ files, dirPath, startName, onClose }) => {
     return i < 0 ? 0 : i
   })
   const [text, setText] = useState(null)
+  const wordRef = useRef(null)
 
   const entry = files[idx]
   const item = {
@@ -27,6 +29,7 @@ export const PreviewModal = ({ files, dirPath, startName, onClose }) => {
   const url = fileUrl(item.path)
   const isImage = IMAGE_EXT.includes(item.ext)
   const isPdf = item.ext === 'pdf'
+  const isWord = WORD_EXT.includes(item.ext)
   const isText = TEXT_EXT.includes(item.ext)
   const multi = files.length > 1
 
@@ -43,6 +46,25 @@ export const PreviewModal = ({ files, dirPath, startName, onClose }) => {
       .catch(() => { if (active) setText('Failed to load file.') })
     return () => { active = false }
   }, [url, isText])
+
+  // Renders the .docx into paginated page divs (docx-preview) so the reader
+  // scrolls through it page by page, the same way the PDF iframe does.
+  useEffect(() => {
+    if (!isWord || !wordRef.current) return undefined
+    let active = true
+    const container = wordRef.current
+    container.innerHTML = ''
+    fetch(url)
+      .then((r) => r.blob())
+      .then((blob) => {
+        if (!active) return
+        return renderAsync(blob, container, undefined, { className: 'docx', inWrapper: true })
+      })
+      .catch(() => {
+        if (active) container.textContent = 'Failed to load file.'
+      })
+    return () => { active = false }
+  }, [url, isWord])
 
   // Arrow keys page through the folder; Escape closes.
   useEffect(() => {
@@ -98,11 +120,28 @@ export const PreviewModal = ({ files, dirPath, startName, onClose }) => {
               <img src={url} alt={item.name} className="w-full h-full object-contain" />
             </div>
           )}
-          {isPdf && <iframe src={url} title={item.name} className="w-full h-[70vh] rounded bg-white" />}
+          {isPdf && (
+            // Drag the bottom-right corner to resize the preview.
+            <div
+              className="resize overflow-auto mx-auto rounded border border-blue-500/20 bg-white"
+              style={{ width: '100%', height: '70vh', maxWidth: '100%', minWidth: '20rem', minHeight: '16rem' }}
+            >
+              <iframe src={url} title={item.name} className="w-full h-full" />
+            </div>
+          )}
+          {isWord && (
+            // Drag the bottom-right corner to resize the preview.
+            <div
+              className="resize overflow-auto mx-auto rounded border border-blue-500/20 bg-white"
+              style={{ width: '100%', height: '70vh', maxWidth: '100%', minWidth: '20rem', minHeight: '16rem' }}
+            >
+              <div ref={wordRef} className="w-full h-full overflow-auto" />
+            </div>
+          )}
           {isText && (
             <pre className="text-xs text-gray-300 whitespace-pre-wrap break-words">{text ?? 'Loading…'}</pre>
           )}
-          {!isImage && !isPdf && !isText && (
+          {!isImage && !isPdf && !isWord && !isText && (
             <p className="text-gray-400 text-sm">No preview available. Use Download to view this file.</p>
           )}
         </div>

@@ -2,6 +2,7 @@ import { File, FileText, Folder, Image as ImageIcon } from 'lucide-react'
 
 export const IMAGE_EXT = ['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg', 'bmp', 'ico']
 export const TEXT_EXT = ['md', 'txt', 'json', 'log', 'csv', 'yml', 'yaml', 'xml', 'js', 'jsx', 'css', 'html']
+export const WORD_EXT = ['docx']
 
 export const formatSize = (bytes) => {
   if (bytes == null) return '—'
@@ -33,6 +34,6 @@ export const typeLabel = (entry) => {
 export const iconFor = (entry) => {
   if (entry.type === 'dir') return Folder
   if (IMAGE_EXT.includes(entry.ext)) return ImageIcon
-  if (entry.ext === 'pdf' || TEXT_EXT.includes(entry.ext)) return FileText
+  if (entry.ext === 'pdf' || WORD_EXT.includes(entry.ext) || TEXT_EXT.includes(entry.ext)) return FileText
   return File
 }
