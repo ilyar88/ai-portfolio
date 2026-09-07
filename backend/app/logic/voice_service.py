@@ -67,7 +67,7 @@ class GeminiVoiceBridge:
         self._instruction = voice_instruction()
         # After the visitor opens the mic, wait this long for them to say
         # something; if they stay silent, Gemini greets them first.
-        self._greet_after_s = 60
+        self._greet_after_s = 30
         self._user_spoke = False
 
     async def run(self):
