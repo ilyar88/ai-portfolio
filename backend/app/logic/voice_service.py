@@ -65,6 +65,10 @@ class GeminiVoiceBridge:
         # we reconnect and resume from this handle so the session survives.
         self.session_handle = None
         self._instruction = voice_instruction()
+        # After the visitor opens the mic, wait this long for them to say
+        # something; if they stay silent, Gemini greets them first.
+        self._greet_after_s = 60
+        self._user_spoke = False
 
     async def run(self):
         async with asyncio.TaskGroup() as tg:
@@ -122,15 +126,7 @@ class GeminiVoiceBridge:
                 }))
                 await gemini_ws.recv()
                 if first_connect:
-                    await gemini_ws.send(json.dumps({
-                        "client_content": {
-                            "turns": [{"role": "user", "parts": [{"text": (
-                                "Greet the visitor in English in one short sentence and "
-                                "invite them to ask about Ilya's experience."
-                            )}]}],
-                            "turn_complete": True,
-                        }
-                    }))
+                    asyncio.create_task(self._greet_if_silent(gemini_ws))
                     first_connect = False
                 try:
                     await self._gemini_to_browser()
@@ -162,6 +158,7 @@ class GeminiVoiceBridge:
 
             user_text = server_content.get("inputTranscription", {}).get("text")
             if user_text:
+                self._user_spoke = True
                 await self._send_event("user", user_text)
 
             model_text = server_content.get("outputTranscription", {}).get("text")
@@ -170,6 +167,24 @@ class GeminiVoiceBridge:
 
             if server_content.get("turnComplete"):
                 await self._send_event("turn_complete", "")
+
+    async def _greet_if_silent(self, gemini_ws):
+        """Wait a minute after the mic opens; greet only if the visitor is silent."""
+        await asyncio.sleep(self._greet_after_s)
+        if self._user_spoke:
+            return
+        try:
+            await gemini_ws.send(json.dumps({
+                "client_content": {
+                    "turns": [{"role": "user", "parts": [{"text": (
+                        "Greet the visitor in English in one short sentence and "
+                        "invite them to ask about Ilya's experience."
+                    )}]}],
+                    "turn_complete": True,
+                }
+            }))
+        except ConnectionClosed:
+            pass
 
     async def _send_event(self, kind: str, text: str):
         try:
