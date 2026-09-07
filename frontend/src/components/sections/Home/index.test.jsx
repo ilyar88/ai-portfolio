@@ -14,32 +14,20 @@ vi.mock('./IntroSection', () => ({
   IntroSection: () => React.createElement('div', { 'data-testid': 'intro-section' })
 }));
 
-// Mock the Lucide React icon
-vi.mock('lucide-react', () => ({
-  Terminal: () => React.createElement('div', { 'data-testid': 'terminal-icon' })
-}));
-
 describe('HomeSection', () => {
   it('renders the profile image and name', () => {
     renderWithConfig(<HomeSection />);
-    
+
     // Check that the profile image is rendered
-    const profileImage = screen.getByAltText('Test User');
+    const profileImage = screen.getByAltText('Ilya Rahmilevich');
     expect(profileImage).toBeInTheDocument();
     expect(profileImage.tagName).toBe('IMG');
     expect(profileImage).toHaveAttribute('src', '/profile.jpg');
-    
+
     // Check that the name is rendered
-    expect(screen.getByText('Test User')).toBeInTheDocument();
+    expect(screen.getByText('Ilya Rahmilevich')).toBeInTheDocument();
   });
-  
-  it('renders the Terminal icon', () => {
-    renderWithConfig(<HomeSection />);
-    
-    // Check that the Terminal icon is rendered
-    expect(screen.getByTestId('terminal-icon')).toBeInTheDocument();
-  });
-  
+
   it('renders the IntroSection component', () => {
     renderWithConfig(<HomeSection />);
     

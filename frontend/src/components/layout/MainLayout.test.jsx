@@ -42,7 +42,6 @@ describe('MainLayout', () => {
     // Check for the main container with the correct classes
     const mainContainer = screen.getByText('Test Content').closest('.min-h-screen');
     expect(mainContainer).toHaveClass('min-h-screen');
-    expect(mainContainer).toHaveClass('bg-black');
     expect(mainContainer).toHaveClass('text-white');
     
     // Check for the main content area

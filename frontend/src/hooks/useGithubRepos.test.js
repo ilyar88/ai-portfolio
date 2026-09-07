@@ -50,11 +50,10 @@ describe('useGithubRepos', () => {
     // Wait for the hook to process the data
     await waitFor(() => expect(result.current.loading).toBe(false));
     
-    // Should have filtered out forked repos and limited to 6
-    expect(result.current.repos).toHaveLength(6);
+    // Should have filtered out forked repos and limited to the default limit (5)
+    expect(result.current.repos).toHaveLength(5);
     expect(result.current.repos[0].name).toBe('repo1');
     expect(result.current.repos).not.toContainEqual(expect.objectContaining({ name: 'repo3' })); // Forked repo
-    // repo7 is included since the limit is 6 and there are 6 non-forked repos
     expect(result.current.error).toBe(null);
     
     // Should have called the service with correct username

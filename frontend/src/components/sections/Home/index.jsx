@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { Terminal } from 'lucide-react'
 import { ChatBox } from './ChatBox'
 import { IntroSection } from './IntroSection'
 import { getPersonalInfo } from '../../../config/configLoader'

@@ -43,8 +43,16 @@ def patched_db_handler(mock_db_config, mock_session):
         with patch.object(DatabaseHandler, '_DatabaseHandler__setup_vector_extension'):
             with patch.object(DatabaseHandler, '_DatabaseHandler__setup_database'):
                 with patch.object(DatabaseHandler, 'get_session') as mock_get_session:
-                    # Setup the context manager to return our mock session
+                    # Setup the context manager to return our mock session, and
+                    # commit on clean exit like the real get_session() does.
                     mock_get_session.return_value.__enter__.return_value = mock_session
+
+                    def _commit_on_clean_exit(exc_type, exc, tb):
+                        if exc_type is None:
+                            mock_session.commit()
+                        return False
+
+                    mock_get_session.return_value.__exit__.side_effect = _commit_on_clean_exit
                     handler = DatabaseHandler(mock_db_config)
                     yield handler
 

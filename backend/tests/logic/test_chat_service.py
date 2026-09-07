@@ -201,11 +201,10 @@ async def test_stream_chat_success(chat_service, mock_llm_client, mock_db_handle
 
 @pytest.mark.unit
 async def test_stream_chat_exception(chat_service, mock_llm_client, sample_chat_request):
-    """Test error handling in stream_chat"""
+    """Test error handling in stream_chat: failures are streamed back, not raised."""
     mock_llm_client.chat.completions.create.side_effect = Exception("API error")
-    
-    with pytest.raises(Exception) as exc_info:
-        async for _ in chat_service.stream_chat(sample_chat_request):
-            pass
-    
-    assert "An error occurred while processing your request" in str(exc_info.value)
+
+    response_chunks = [chunk async for chunk in chat_service.stream_chat(sample_chat_request)]
+
+    assert len(response_chunks) == 1
+    assert "An error occurred while processing your request" in response_chunks[0]

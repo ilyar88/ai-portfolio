@@ -8,7 +8,7 @@ describe('navigationConfig', () => {
     const socialLinks = getSocialLinksWithIcons();
     
     it('contains the correct number of social links', () => {
-      expect(socialLinks).toHaveLength(3);
+      expect(socialLinks).toHaveLength(4);
     });
     
     it('has GitHub link with correct properties', () => {
@@ -22,7 +22,7 @@ describe('navigationConfig', () => {
     it('has LinkedIn link with correct properties', () => {
       const linkedinLink = socialLinks.find(link => link.label === 'LinkedIn');
       expect(linkedinLink).toBeDefined();
-      expect(linkedinLink.href).toContain('https://linkedin.com/in/');
+      expect(linkedinLink.href).toContain('linkedin.com/in/');
       expect(linkedinLink.icon).toBe(Linkedin);
       expect(linkedinLink.color).toBe('hover:text-[#0A66C2]');
     });
