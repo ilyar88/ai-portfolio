@@ -24,7 +24,11 @@ def files_router(files_root, monkeypatch):
 @pytest.mark.unit
 def test_router_initialization(files_router):
     route_methods = {route.path: set(route.methods) for route in files_router.router.routes}
-    assert route_methods == {"/files/list": {"GET"}, "/files/raw": {"GET"}}
+    assert route_methods == {
+        "/files/list": {"GET"},
+        "/files/search": {"GET"},
+        "/files/raw": {"GET"},
+    }
 
 
 @pytest.mark.unit
