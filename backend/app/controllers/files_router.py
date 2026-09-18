@@ -35,6 +35,7 @@ class FilesRouter:
         if not self.root.is_dir():
             logger.warning("File browser root %s is not a directory - set FILES_ROOT", self.root)
         self.router.add_api_route("/files/list", self._list, methods=["GET"])
+        self.router.add_api_route("/files/search", self._search, methods=["GET"])
         self.router.add_api_route("/files/raw", self._raw, methods=["GET"])
 
     def _resolve(self, rel: str) -> Path:
@@ -117,6 +118,37 @@ class FilesRouter:
             "breadcrumb": crumbs,
             "entries": [self._entry(c) for c in children],
         }
+
+    async def _search(self, q: str = Query("")):
+        """Recursively search the tree for files/folders whose name contains ``q``
+        (plain case-insensitive substring match, no wildcards).
+
+        Returns every matching file/folder with its parent directory path so the
+        frontend can show where each match lives.
+        """
+        query = q.strip().lower()
+        if not query or not self.root.is_dir():
+            return {"query": q, "entries": []}
+
+        matches = []
+        for dirpath, dirnames, filenames in os.walk(self.root):
+            dirnames[:] = [d for d in dirnames if not d.startswith(".")]
+            current = Path(dirpath)
+            rel_dir = current.relative_to(self.root)
+            rel_dir_str = "" if rel_dir == Path(".") else rel_dir.as_posix()
+            candidates = [(name, "dir") for name in dirnames]
+            candidates += [(name, "file") for name in filenames if not name.startswith(".")]
+            for name, _kind in candidates:
+                if query not in name.lower():
+                    continue
+                child = current / name
+                entry = self._entry(child)
+                entry["path"] = child.relative_to(self.root).as_posix()
+                entry["dir"] = rel_dir_str
+                matches.append(entry)
+
+        matches.sort(key=lambda e: (e["dir"], e["type"] == "file", e["name"].lower()))
+        return {"query": q, "entries": matches}
 
     async def _raw(self, path: str = Query(...), download: bool = Query(False)):
         """Stream a single file for preview (inline) or download (attachment)."""
