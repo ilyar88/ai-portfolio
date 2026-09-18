@@ -24,6 +24,27 @@ export const listDir = async (path = '') => {
   return res.json();
 };
 
+/**
+ * Search the whole tree for files/folders whose name contains `q` (plain
+ * substring match, case-insensitive).
+ * @param {string} q
+ * @returns {Promise<{query:string, entries:object[]}>} each entry also carries
+ *   `path` (relative to the root) and `dir` (its parent folder's path).
+ */
+export const searchFiles = async (q) => {
+  let res;
+  try {
+    res = await fetch(`${BACKEND_URL}/files/search?q=${encodeURIComponent(q)}`);
+  } catch {
+    throw new Error(`Can't reach the file service at ${BACKEND_URL} - is the backend running?`);
+  }
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail || `File service error (${res.status})`);
+  }
+  return res.json();
+};
+
 /** URL that streams a single file, inline for preview or as an attachment. */
 export const fileUrl = (path, download = false) =>
   `${BACKEND_URL}/files/raw?path=${encodeURIComponent(path)}${download ? '&download=true' : ''}`;
