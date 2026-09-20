@@ -24,8 +24,8 @@ Led QA for large-scale on-prem enterprise systems with a strong hands-on focus o
 2008 - 2010: Practical Engineer, Computer Science, Afeka College of Engineering 
 2014 - 2015: ISTQB Certification 
 2017 - 2018: Network Administrator, INT College  
-2018: Microsoft Certified MCSE: Cloud Platform and Infrastructure
 2023: AWS Certified Cloud Practitioner
+2024 - 2025: Full Stack Automation, Atid Automation College
 
 ### LANGUAGES
 Hebrew - Native | English - Fluent
