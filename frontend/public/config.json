@@ -42,6 +42,6 @@
   },
   "chat": {
     "inputPlaceholder": "Ask me anything about Ilya...",
-    "initialMessage": "Hey there! 👋 I'm Ilya's AI assistant, I have access to his writings, and life insights. Feel free to ask and explore about his professional path or personal growth!"
+    "initialMessage": "Hey there! 👋 I'm Ilya's AI assistant, I have access to his knowledge and life insights. Feel free to ask and explore his professional path or personal growth through chat or voice!"
   }
 } 
