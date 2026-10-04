@@ -38,10 +38,12 @@ export const ChatInput = ({ input, setInput, isLoading, onSubmit, onStop, voiceS
         whileTap={{ scale: 0.9 }}
         animate={voiceActive ? { scale: [1, 1.12, 1] } : { scale: 1 }}
         transition={voiceActive ? { duration: 1.1, repeat: Infinity, ease: 'easeInOut' } : { duration: 0.2 }}
-        className={`flex-shrink-0 p-3 rounded-lg transition-colors duration-200 ring-1 disabled:opacity-50 disabled:cursor-not-allowed ${
-          voiceActive
-            ? 'text-white bg-gradient-to-r from-red-500/80 to-orange-500/80 ring-red-400/40 shadow-lg shadow-red-500/20'
-            : 'text-amber-300 bg-orange-400/20 ring-orange-400/50 hover:text-amber-200 hover:bg-orange-400/30'
+        className={`flex-shrink-0 p-3 rounded-full transition-colors duration-200 ring-1 disabled:opacity-50 disabled:cursor-not-allowed ${
+          voiceStatus === 'live'
+            ? 'text-white bg-red-500 ring-red-300 shadow-lg shadow-red-500/40'
+            : voiceStatus === 'connecting'
+              ? 'text-white bg-amber-500 ring-amber-300 shadow-lg shadow-amber-500/30'
+              : 'text-black bg-white ring-gray-300 hover:bg-gray-200'
         }`}
       >
         <Mic className="w-5 h-5" />
