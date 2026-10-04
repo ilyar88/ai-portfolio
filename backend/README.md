@@ -47,15 +47,13 @@ chat.
 
 The `/files/list` and `/files/raw` endpoints expose a **read-only** browser for a
 single directory, used by the "Knowledge and experience" page in the frontend.
-When run directly (`run_server.py`) it defaults to `frontend/public` relative to
-the repo root; the Docker image bundles that folder at `/srv/files` and sets
-`FILES_ROOT` to it. Override `FILES_ROOT=/absolute/path` in your `.env` to browse
+When run directly (`run_server.py`) it defaults to `backend/docs`; the Docker image
+sets `FILES_ROOT` to `/app/docs`. Override `FILES_ROOT=/absolute/path` in your `.env` to browse
 elsewhere. When the root has subfolders it lists only those (files appear once
 you open a folder); a flat root lists its files directly. Every request is
 confined to that root (no path traversal) and only GET is supported.
 
-Because the image needs `frontend/public`, the Docker build context is the **repo
-root** (not `backend/`) - see the Dockerfile and the deploy command below.
+The Docker build context is the **repo root** (not `backend/`) - see the Dockerfile and the deploy command below.
 
 If the page shows "Backend has no /files endpoint", you are running an older
 build: restart `run_server.py`, or `docker compose up --build` to rebuild the
@@ -71,8 +69,7 @@ docker compose build
 docker compose up
 ```
 
-> The `backend` service builds with the repo root as context (so `frontend/public`
-> can be bundled). Run `docker compose` from wherever the compose file lives - the
+> The `backend` service builds with the repo root as context (see the Dockerfile). Run `docker compose` from wherever the compose file lives - the
 > context paths are already set for both `docker-compose.yml` files.
 
 ## 🚀 Deployment on fly.io
@@ -110,7 +107,7 @@ docker compose up
 6. Update the `fly.toml` file (at the **repo root**) with your app, postgres, and
    redis details
 
-7. Deploy **from the repo root** - the build context must include `frontend/public`,
+7. Deploy **from the repo root** - the build context is the repo root,
    which is why `fly.toml` sits there rather than in `backend/`:
    ```bash
    fly deploy
