@@ -19,7 +19,7 @@ vi.mock('react-router-dom', () => ({
 }));
 
 const listing = {
-  root: 'public',
+  root: 'docs',
   path: '',
   parent: null,
   breadcrumb: [],
