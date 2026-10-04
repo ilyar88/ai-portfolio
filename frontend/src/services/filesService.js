@@ -1,7 +1,7 @@
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
 
 /**
- * List one directory under the backend's FILES_ROOT (defaults to frontend/public).
+ * List one directory under the backend's FILES_ROOT (defaults to backend/docs).
  * @param {string} path - relative path, "" for the root folder
  * @returns {Promise<{path:string, parent:string|null, breadcrumb:{name:string,path:string}[], entries:object[]}>}
  */
