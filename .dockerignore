@@ -1,5 +1,5 @@
 # Build context is the repo root (see backend/Dockerfile). Keep it lean:
-# only backend/ and frontend/public are actually COPYd into the image.
+# only backend/ is actually COPYd into the image.
 
 # Dependencies / virtualenvs
 **/node_modules
