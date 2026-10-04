@@ -11,19 +11,19 @@ logger = get_logger(__name__)
 
 
 def _default_root() -> Path:
-    """`frontend/public` relative to the repo root.
+    """`backend/docs`.
 
-    ``backend/app/controllers/files_router.py`` -> repo root is three parents up.
+    ``backend/app/controllers/files_router.py`` -> backend is two parents up.
     In a deployment where that folder is not present, set ``FILES_ROOT`` to a
     directory that is (see the README).
     """
-    return Path(__file__).resolve().parents[3] / "frontend" / "public"
+    return Path(__file__).resolve().parents[2] / "docs"
 
 
 class FilesRouter:
     """Read-only file browser scoped to a single root directory.
 
-    The root defaults to ``frontend/public`` and can be overridden with the
+    The root defaults to ``backend/docs`` and can be overridden with the
     ``FILES_ROOT`` environment variable. Only GET access is exposed and every
     request is confined to the root (no path traversal).
     """
