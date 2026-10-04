@@ -37,7 +37,7 @@ services:
   
   backend:
     build:
-      # Repo root as context so the Dockerfile can bundle frontend/public.
+      # Repo root as context for the Dockerfile.
       context: .
       dockerfile: backend/Dockerfile
     restart: always
