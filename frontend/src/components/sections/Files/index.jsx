@@ -2,7 +2,7 @@
  * FilesSection
  * ------------
  * A read-only file explorer for the backend's FILES_ROOT (defaults to
- * `frontend/public`). Reached from the "Knowledge and experience" nav item.
+ * `backend/docs`). Reached from the "Knowledge and experience" nav item.
  *
  * The current folder lives in the URL (`/files/<path>`), so the browser back
  * button and deep links work. Clicking a folder row navigates into it; clicking
@@ -15,7 +15,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowLeft, ChevronRight, Download, Home, Search } from 'lucide-react'
 import { fileUrl, listDir, searchFiles } from '../../../services/filesService'
-import { formatDate, formatSize, iconFor, typeLabel } from './fileHelpers'
+import { displayName, formatDate, formatSize, iconFor, openShortcut, typeLabel } from './fileHelpers'
 import { PreviewModal } from './PreviewModal'
 
 export const FilesSection = () => {
@@ -53,6 +53,7 @@ export const FilesSection = () => {
 
   const openEntry = (entry) => {
     if (entry.type === 'dir') go(path ? `${path}/${entry.name}` : entry.name)
+    else if (entry.ext === 'url') openShortcut(path ? `${path}/${entry.name}` : entry.name)
     else setPreview(entry.name)
   }
 
@@ -75,6 +76,7 @@ export const FilesSection = () => {
 
   const openSearchEntry = (entry) => {
     if (entry.type === 'dir') { clearSearch(); go(entry.path) }
+    else if (entry.ext === 'url') openShortcut(entry.path)
     else setSearchPreview(entry)
   }
 
@@ -165,7 +167,7 @@ export const FilesSection = () => {
                           <td className="px-4 py-2">
                             <span className="flex items-center gap-2">
                               <Icon className={`w-4 h-4 ${entry.type === 'dir' ? 'text-blue-400' : 'text-gray-400'}`} />
-                              <span className="text-gray-200">{entry.name}</span>
+                              <span className="text-gray-200">{displayName(entry)}</span>
                             </span>
                           </td>
                           <td className="px-4 py-2 text-gray-400 font-mono">/{entry.dir}</td>
@@ -173,9 +175,9 @@ export const FilesSection = () => {
                           <td className="px-4 py-2 text-right" onClick={(e) => e.stopPropagation()}>
                             <div className="flex items-center justify-end gap-3">
                               <button onClick={() => openSearchEntry(entry)} className="text-blue-400 hover:text-blue-300">
-                                Open
+                                {entry.ext === 'url' ? 'Open url' : 'Open'}
                               </button>
-                              {entry.type === 'file' && (
+                              {entry.type === 'file' && entry.ext !== 'url' && (
                                 <a
                                   href={fileUrl(entry.path, true)}
                                   className="text-blue-400 hover:text-blue-300 flex items-center gap-1"
@@ -227,7 +229,7 @@ export const FilesSection = () => {
                           <td className="px-4 py-2">
                             <span className="flex items-center gap-2">
                               <Icon className={`w-4 h-4 ${entry.type === 'dir' ? 'text-blue-400' : 'text-gray-400'}`} />
-                              <span className="text-gray-200">{entry.name}</span>
+                              <span className="text-gray-200">{displayName(entry)}</span>
                               {entry.type === 'dir' && entry.itemCount != null && (
                                 <span className="text-xs text-gray-500">({entry.itemCount})</span>
                               )}
@@ -241,9 +243,9 @@ export const FilesSection = () => {
                           <td className="px-4 py-2 text-right" onClick={(e) => e.stopPropagation()}>
                             <div className="flex items-center justify-end gap-3">
                               <button onClick={() => openEntry(entry)} className="text-blue-400 hover:text-blue-300">
-                                Open
+                                {entry.ext === 'url' ? 'Open url' : 'Open'}
                               </button>
-                              {entry.type === 'file' && (
+                              {entry.type === 'file' && entry.ext !== 'url' && (
                                 <a
                                   href={fileUrl(childPath, true)}
                                   className="text-blue-400 hover:text-blue-300 flex items-center gap-1"
