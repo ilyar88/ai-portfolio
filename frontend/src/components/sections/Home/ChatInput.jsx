@@ -41,7 +41,7 @@ export const ChatInput = ({ input, setInput, isLoading, onSubmit, onStop, voiceS
         className={`flex-shrink-0 p-3 rounded-lg transition-colors duration-200 ring-1 disabled:opacity-50 disabled:cursor-not-allowed ${
           voiceActive
             ? 'text-white bg-gradient-to-r from-red-500/80 to-orange-500/80 ring-red-400/40 shadow-lg shadow-red-500/20'
-            : 'text-orange-300/90 bg-orange-400/10 ring-orange-400/30 hover:text-orange-200 hover:bg-orange-400/20'
+            : 'text-amber-300 bg-orange-400/20 ring-orange-400/50 hover:text-amber-200 hover:bg-orange-400/30'
         }`}
       >
         <Mic className="w-5 h-5" />
