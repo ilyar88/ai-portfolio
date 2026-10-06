@@ -169,6 +169,10 @@ The first thing that paved the way was writing test cases in Azure Test Plans en
 9. Actions summary page
 10. User profile page
 
+PrintUp is a web-based signage and print production management system designed for printing houses, enabling businesses to manage clients, orders, materials, and the end-to-end production workflow — from uploading design files and managing print/cut layers to arranging layouts on print sheets and exporting production-ready files in PDF, AI, SVG, and DXF formats.
+
+Performed end-to-end (E2E) testing using Azure Test Plans, including manual test planning, test case design, execution, regression testing, and defect reporting. Developed and maintained automated E2E tests using Playwright with TypeScript, covering critical business workflows and user scenarios. Integrated automated tests into CI/CD pipelines using GitHub Actions and Jenkins, with Docker-based test environments to ensure consistent and reliable execution across environments.
+
 Writing test scenarios can help me a lot later; in the MVP stage I'll translate the main flow to automation with Selenium Java; there will also be GitHub Actions and Docker after the automation for the main flow is ready.
 
 **The Transformation:**

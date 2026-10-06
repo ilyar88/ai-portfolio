@@ -108,8 +108,10 @@ Online DevOps course covering networks, virtualization, Linux, cloud (GCP, Azure
 **Period #10 - Full Stack Automation Course (12.2024 - 2.2025):**
 Studied comprehensive automation course at Atid Automation covering Selenium for web, Appium for mobile, desktop, API, DB testing with Allure reports and Applitools AI testing. Built complete automation framework that can serve as template. Can now set up automation infrastructure 40% faster in Python, Java, JavaScript, and C#.
 
-**Period #11 - Project (3.2025 - 9.2025):**
+**Period #11 - Projects (3.2025 - 4.2026):**
 Created end-to-end automation framework for financial website MyFinancePlan. Wrote test scenarios in Azure DevOps, built automation framework from scratch in Selenium Java with Maven, integrated GitHub Actions, Allure Report, and Docker. 
+
+Tested PrintUp, a SaaS web-based print production management platform for printing houses, managing clients, orders, materials, and end-to-end production workflows. Created test scenarios in Azure Test Plans and performed manual E2E testing. Developed E2E automation using Playwright with TypeScript and integrated GitHub Actions, Jenkins, and Docker for CI/CD and automated test execution.
 
 **Key Achievements:**
 - Reduced production deployment time and customer delivery by 40% through combining automation and manual testing
