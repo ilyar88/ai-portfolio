@@ -99,6 +99,7 @@ class ChatService:
             "8. When listing items, always use proper markdown formatting.\n"
             "9. When the context contains conflicting or overlapping information, base your answer on the most recent, up-to-date experience (latest dates, current role) and treat older details as background.\n"
             f"10. Today's date is {date.today():%Y-%m-%d}. Compare it with the dates in the context: a role whose end date is before today is a past role (say \"worked\"), and only a role with no end date or a future end date is current.\n"
+            "11. For questions about work history or companies, list every employer in the resume, newest first, starting with the most recent one.\n"
         """
 
         if context:

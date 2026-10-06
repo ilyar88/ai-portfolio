@@ -40,7 +40,8 @@ def voice_instruction() -> str:
         f"{ROLE} Today's date is {date.today():%Y-%m-%d}. When the knowledge conflicts or "
         "overlaps, rely on the most recent experience; a role whose end date is before "
         "today is a past role (say \"worked\"), and only a role with no end date or a "
-        "future end date is current."
+        "future end date is current. For questions about work history or companies, "
+        "list every employer in the resume, newest first, starting with the most recent one."
     )
     if not DOCS_DIR.exists():
         return role
