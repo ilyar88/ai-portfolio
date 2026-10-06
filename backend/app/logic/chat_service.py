@@ -63,16 +63,14 @@ class ChatService:
         """
         try:
             logger.info(f"Fetching relevant context for query: {user_message}")
-            query_embedding: List[float] = self.embeddings.embed_query(user_message)
-            chunks: List[DocumentChunk] = await self.db_handler.search_similar_chunks(
-                query_embedding,
-                limit=8
-            )
-            
+            # The corpus is small (~64 KB), so send every chunk instead of only the
+            # top-k similar ones; similarity search missed facts (e.g. current role).
+            chunks: List[DocumentChunk] = await self.db_handler.get_all_chunks()
+
             if not chunks:
                 logger.info("No relevant context found for query")
                 return ""
-            
+
             context = ""
             for chunk in chunks:
                 context += f"{chunk.content}\n\n"

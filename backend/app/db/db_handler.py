@@ -84,6 +84,21 @@ class DatabaseHandler:
         with self.get_session() as session:
             session.add(chunk)
     
+    async def get_all_chunks(self) -> List[DocumentChunk]:
+        """Return every chunk, Resume.md first (source of truth for current experience)."""
+        query = text("""
+            SELECT content, doc_metadata
+            FROM documentchunk
+            ORDER BY (doc_metadata->>'source' ILIKE '%Resume.md') DESC, id;
+        """)
+
+        try:
+            with self.get_session() as session:
+                return session.exec(query).all()
+        except Exception:
+            logger.exception("Error in get_all_chunks")
+            return []
+
     async def search_similar_chunks(self, query_embedding: List[float], limit: int) -> List[DocumentChunk]:
         """Find the top similar document chunks using cosine similarity without filtering by threshold."""
         query = text("""
