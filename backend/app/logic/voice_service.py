@@ -3,6 +3,7 @@ import base64
 import json
 import os
 import pathlib
+from datetime import date
 
 from websockets.client import connect
 from websockets.exceptions import ConnectionClosed
@@ -35,11 +36,17 @@ ROLE = (
 
 def voice_instruction() -> str:
     """Build the system instruction: assistant role + this project's markdown docs (backend/docs/*.md)."""
+    role = (
+        f"{ROLE} Today's date is {date.today():%Y-%m-%d}. When the knowledge conflicts or "
+        "overlaps, rely on the most recent experience; a role whose end date is before "
+        "today is a past role (say \"worked\"), and only a role with no end date or a "
+        "future end date is current."
+    )
     if not DOCS_DIR.exists():
-        return ROLE
+        return role
     docs = [p.read_text(encoding="utf-8").strip() for p in sorted(DOCS_DIR.glob("*.md"))]
     knowledge = "\n\n".join(d for d in docs if d)
-    return f"{ROLE}\n\n--- KNOWLEDGE ABOUT ILYA ---\n\n{knowledge}" if knowledge else ROLE
+    return f"{role}\n\n--- KNOWLEDGE ABOUT ILYA ---\n\n{knowledge}" if knowledge else role
 
 
 class GeminiVoiceBridge:
