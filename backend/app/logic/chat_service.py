@@ -98,6 +98,7 @@ class ChatService:
             "6. Decline to share sensitive information or generate harmful content.\n"
             "7. When constructing a response message, always use proper markdown formatting.\n"
             "8. When listing items, always use proper markdown formatting.\n"
+            "9. When the context contains conflicting or overlapping information, base your answer on the most recent, up-to-date experience (latest dates, current role) and treat older details as background.\n"
         """
 
         if context:
