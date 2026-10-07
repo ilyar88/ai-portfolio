@@ -73,9 +73,8 @@ class GeminiVoiceBridge:
         # we reconnect and resume from this handle so the session survives.
         self.session_handle = None
         self._instruction = voice_instruction()
-        # After the visitor opens the mic, wait this long for them to say
-        # something; if they stay silent, Gemini greets them first.
-        self._greet_after_s = 30
+        # Gemini greets the visitor first as soon as the mic is opened.
+        self._greet_after_s = 0
         self._user_spoke = False
 
     async def run(self):
@@ -177,7 +176,7 @@ class GeminiVoiceBridge:
                 await self._send_event("turn_complete", "")
 
     async def _greet_if_silent(self, gemini_ws):
-        """Wait a minute after the mic opens; greet only if the visitor is silent."""
+        """Greet the visitor right after the mic opens (unless they already spoke)."""
         await asyncio.sleep(self._greet_after_s)
         if self._user_spoke:
             return
