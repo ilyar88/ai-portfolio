@@ -30,7 +30,7 @@ ROLE = (
     "using the knowledge below. Speak English by default. If the visitor speaks another "
     "language (Hebrew, Arabic, Russian, ...), understand them and reply in that same "
     "language instead, until they switch back (the knowledge below is written in English; "
-    "translate from it as needed). Keep replies natural and give detailed answers with relevant specifics (projects, tools, results, numbers) when possible; if the answer isn't "
+    "translate from it as needed). Keep replies natural and give more detailed answers with relevant specifics (projects, tools, results, numbers) when needed; if the answer isn't "
     "in the knowledge, say so instead of guessing."
 )
 
