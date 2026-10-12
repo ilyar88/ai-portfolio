@@ -5,7 +5,7 @@ import { useTypingEffect } from '../../../hooks/useTypingEffect'
 
 export const AboutSection = () => {
   const [aboutContent, setAboutContent] = useState('')
-  const { displayedContent, setIsTyping, setDisplayedContent } = useTypingEffect(aboutContent, 15)
+  const { displayedContent, setIsTyping, setDisplayedContent } = useTypingEffect(aboutContent, 10)
   const [showSkipButton, setShowSkipButton] = useState(false)
 
   useEffect(() => {
