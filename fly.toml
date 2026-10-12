@@ -15,7 +15,7 @@ primary_region = 'fra'
 [env]
   # LLM + embeddings via Gemini's OpenAI-compatible endpoint.
   # The only secret needed: fly secrets set GEMINI_API_KEY=...
-  LLM_MODEL = 'gemini-2.5-flash'
+  LLM_MODEL = 'gemini-3.5-flash-lite'
   LLM_ROUTER_URL = 'https://generativelanguage.googleapis.com/v1beta/openai/'
   EMBEDDING_MODEL = 'gemini-embedding-001'
   EMBEDDING_API_BASE = 'https://generativelanguage.googleapis.com/v1beta/openai/'
