@@ -196,3 +196,72 @@ Write here what were the most amazing results you created within this period, wh
 
 A notable achievement for me was writing end-to-end Sanity tests in Azure Test Plans. These scenarios served as a basis for more advanced tests, including validation and negative testing (trying to break the system). They helped me reduce by about 50% the time for writing advanced scenarios by copying existing scenarios with changes as needed.
 Additionally, I wrote an automation framework from scratch and uploaded it to GitHub Actions with a table displaying test run results (passed/failed) and a test report that can be downloaded; as a result, I reduced production deployment time and customer delivery by 40% through combining automation and manual testing, improving customer satisfaction.
+
+**Pitch Deep Dive Period #6 - Mei Avivim | May 2026-July 2026 (Temporary Project)**
+
+**The Call to Adventure:**
+Write here why you started the journey in this period, what drew you in, or what was your personal vision when entering this journey in this period:
+
+I started the journey because I wanted to return to high-tech. There were difficulties with targeting; people didn't always get back to me after I contacted employees and sent them my resume. There were also quality responses. I used agents to improve my opening message, but it was still hard. I chose the Mei Avivim project in order to connect with employees, with the aim of being accepted to a permanent position and finding more projects.
+I worked on a project to upgrade the CRM/billing system of a water corporation (Mei Avivim) from an old system (Agam) to the Oracle APEX platform. The project included 31 screens; each screen was classified by the type of change required, which determined the scope of testing.
+Description of several screens:
+
+* CRM alerts screen: A screen that gathers alerts about water consumption anomalies, such as leaks and seepage. It includes a search with many filters (alert type, deviation percentage, date range, water identification), so in testing it is possible to check that every filter combination returns the correct results.
+* Summary cards at the top of the screen: They show at a glance the last intake date, work orders opened today, and abnormal leaks. The test here is that the data in the cards matches the data in the table.
+* Tabs by alert type: Each tab shows a different type of suspicion (leak in a main or secondary meter, reverse flow, suspected meter dismantling, suspected tampering, and more). It is necessary to verify that the quantity displayed in the tab matches the actual number of rows.
+* Alerts table: Displays the status, alert type, water identification, meter number, property address, start and alert dates, and transmission days. I checked date format validity, status display, and the correctness of the relationship between the columns.
+* Consumption and periodic billing screen per water identification: Displays consumption by year and period, with a breakdown between private, shared, and public consumption, and deviations from the average. This is a screen with business logic and calculations, so the testing includes verifying calculations against the source data.
+* Water and sewage consumption and billing screen for a period: A summary by tariff tiers, including quantity, rate, and billing. Here we check that the billing is calculated correctly according to the tier and rate.
+* Payment methods display screen: A complex search form with many fields: credit details, bank details, dates, and payment status (paid, cancelled, refunded). The testing focuses on search combinations, mandatory fields, and the yes/no/all selection buttons.
+* Report execution screen: Displays reports running in the background with statuses (succeeded, failed, pending), start and end times, and actions such as view, download, and delete. Suitable for talking about testing asynchronous processes and error-handling correctness.
+* Export and print: Download and print capabilities for table data, including system messages to the user. The test is that the exported file matches what is displayed on the screen.
+* Hebrew support and right-to-left direction: A complete Hebrew interface with alignment, column order, and menus reversed. It is important to mention that I also tested the visual aspect and usability, not only the functionality.
+* Search, pagination, and navigation: Screen search, moving between contract accounts, side navigation, and pagination of large tables. These tests check performance and correctness against large amounts of data.
+
+**The Transformation:**
+Write here what were the challenges you experienced in that period that forced you to change, improve, and upgrade your level to adapt and produce better results:
+
+The challenge I experienced was managing testing independently when there is no Jira, no system for managing bugs and test cases. I wrote the test cases in Excel, and I used Claude Code to accelerate the testing by writing test cases from screens and specifications.
+
+**The Commitment:**
+Write here what is the action or moment you remember as pivotal in this period, or the first thing you did that paved the way for the rest of the period:
+
+What paved the way was order; the screen tests were organized by screen number in the system, which I turned to at the corporation.
+
+**Crossing the Threshold:**
+Write here how you overcame those challenges, what changes were required personally, professionally, operationally to succeed and become better and achieve some desired result:
+
+Each time I used Claude to write test cases from the screenshots with test data and specifications, in order to write as few test cases as possible and deal more with testing and reporting bugs in an internal system at the corporation.
+
+**The Return Home:**
+Write here what were the most amazing results you created within this period, what improvement occurred as a result of your work and as a result of the challenges you overcame, how it affected you, the organization, or those around you:
+
+I shortened the test case writing time by 50% using an Excel template with a prompt; I uploaded the test cases to an internal system at the corporation.
+
+**Pitch Deep Dive Period #7 - Heirloom4Life**
+
+**The Call to Adventure:**
+Write here why you started the journey in this period, what drew you in, or what was your personal vision when entering this journey in this period:
+
+I started the journey in this period to gain more experience as a freelancer in a temporary project until the end of 2026, testing Web and mobile with AI.
+One of the projects I tested is Heirloom4Life, a startup that developed an application whose purpose is to preserve life stories, memories, and family history using voice recordings and AI.
+The system has an AI agent named Sam who conducts an interview with the user, asks follow-up questions, and manages a conversation according to the answers and the user's life story. The system uses Gemini as part of the AI capabilities.
+I performed Web and Mobile testing, including processes such as registration and login, creating stories, voice recordings, transcription, conversations with Sam, sharing with family members, testing a third-party payment system, and user plans.
+On Mobile I tested on Android and iOS. On iOS I used TestFlight to install test versions and test new versions. I performed functional tests, UI regression, and tests of main processes on different devices.
+When I found bugs, I documented them in Jira, including reproduction steps, actual result, and expected result; I attached relevant information such as the build and device information including the operating system version.
+In addition to manual testing, I also worked with automation and E2E, and tested positive and negative scenarios to make sure the system functions properly, including the interaction with the AI capabilities.
+
+**The Transformation:**
+Write here what were the challenges you experienced in that period that forced you to change, improve, and upgrade your level to adapt and produce better results:
+
+The challenges were mainly testing that the Gemini agent interviews users properly as they tell their stories in the family, that there is no delay, that the speech is natural and not robotic, and that it understands several languages.
+
+**The Commitment:**
+Write here what is the action or moment you remember as pivotal in this period, or the first thing you did that paved the way for the rest of the period:
+
+I updated a project I found on GitHub with Claude Code that allows talking with Gemini in several languages. This was to challenge the agent, to check whether it is able to manage a conversation with another Gemini in addition to the conversation with the user.
+
+**Crossing the Threshold:**
+Write here how you overcame those challenges, what changes were required personally, professionally, operationally to succeed and become better and achieve some desired result:
+
+I updated a project (a template I found on GitHub) with the Gemini API and the gemini-3.8-live model, which can be adapted to a conversation with the Gemini agent. At first it waits for the agent to ask questions about childhood, hobbies, pets, and a special object passed down from generation to generation (family memories, family heritage). I also added a prompt for Gemini to answer like a user and not like a robot, when asked about marriage or where he grew up; the AI flows with the question, and it is also possible to change language during the conversation, just like the built-in Gemini on Android.

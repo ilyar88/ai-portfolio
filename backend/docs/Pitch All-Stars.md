@@ -97,3 +97,27 @@ Wrote test scripts for a financial website in Azure DevOps, ran them, and report
 
 **One Significant Achievement:**
 Reduced production deployment time and customer delivery by 40%, through combining automation and manual testing improved customer satisfaction.
+
+**Period #9 - Mei Avivim | May 2026-July 2026 (Temporary Project)**
+
+**Main Objective in One Sentence:**
+I tested that the migration is correct from the CRM and billing system of the Mei Avivim corporation from the old system (Agam) to an APEX Web platform with Oracle support, using software testing to verify that all 31 screens display data from the old system, that all the calculations including water consumption, leaks, deviation percentage, dates, property address, meter number, and all the data related to the corporation function properly, including Hebrew right-to-left support, so that employees and customers can continue working without harming the service or the accuracy of the billing.
+
+**2 Key Actions:**
+1. I managed the tests in Excel, then transferred them to an internal system at the corporation sorted by screen number, so that each screen was tested and documented in a consistent, traceable way
+2. I accelerated the writing of test cases with Claude Code: I used an AI tool to create test cases from screens and specifications, which saved time and made it possible to cover the screens that development had finished
+
+**One Significant Achievement:**
+I shortened the test case writing time by 50% using an Excel template with Claude, and uploaded them to an internal system at the corporation.
+
+**Period #10 - Heirloom4Life**
+
+**Main Objective in One Sentence:**
+Testing the application on Web and mobile on Android and iOS at a startup, with an emphasis on saving history, family memories, and voice recordings with Gemini, automation and E2E testing, including documenting bugs in Jira.
+
+**2 Key Actions:**
+1. I managed to update a project on GitHub with Gemini that can talk with a model via API, and connected it to the Gemini API with the gemini-3.8-live model; I added a prompt that makes it answer like a real user (not like a robot) the questions that the Gemini agent asks it, such as childhood, hobbies, pets, family objects, and marriage, including switching between languages during the conversation
+2. Shortening test case writing time, I used Gemini to create test cases from specifications and from a Test plan, and so I shortened the test case writing time
+
+**One Significant Achievement:**
+I developed an integration with the Gemini Voice API for multilingual testing, using a GitHub template and Claude Code, which led to a 40% reduction in manual conversation testing.
