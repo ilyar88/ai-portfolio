@@ -273,7 +273,7 @@ export const FilesSection = () => {
 
       {preview != null && fileEntries.length > 0 && (
         <PreviewModal
-          files={fileEntries}
+          files={fileEntries.filter((e) => e.ext !== 'url')}
           dirPath={path}
           startName={preview}
           onClose={() => setPreview(null)}
