@@ -58,7 +58,7 @@ class GeminiVoiceBridge:
     the two WebSocket connections instead of touching local audio hardware.
     """
 
-    MODEL = "gemini-3.1-flash-live-preview"
+    MODEL = "gemini-3.8-live"
 
     def __init__(self, browser_ws):
         self.browser_ws = browser_ws
