@@ -1,9 +1,12 @@
+import io
 import os
+import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import quote
 
 from fastapi import APIRouter, HTTPException, Query
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, Response
 
 from app.logs.logger import get_logger
 
@@ -37,6 +40,7 @@ class FilesRouter:
         self.router.add_api_route("/files/list", self._list, methods=["GET"])
         self.router.add_api_route("/files/search", self._search, methods=["GET"])
         self.router.add_api_route("/files/raw", self._raw, methods=["GET"])
+        self.router.add_api_route("/files/zip", self._zip, methods=["GET"])
 
     def _resolve(self, rel: str) -> Path:
         """Resolve a client-supplied relative path inside the root or raise 404."""
@@ -159,4 +163,21 @@ class FilesRouter:
             target,
             filename=target.name,
             content_disposition_type="attachment" if download else "inline",
+        )
+
+    async def _zip(self, path: str = Query(...)):
+        """Download a folder (hidden files skipped) as a ZIP attachment."""
+        target = self._resolve(path)
+        if not target.is_dir():
+            raise HTTPException(status_code=404, detail="Folder not found")
+        buf = io.BytesIO()
+        with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+            for f in sorted(target.rglob("*")):
+                rel = f.relative_to(target)
+                if f.is_file() and not any(p.startswith(".") for p in rel.parts) and self.root in f.resolve().parents:
+                    zf.write(f, rel.as_posix())
+        return Response(
+            buf.getvalue(),
+            media_type="application/zip",
+            headers={"Content-Disposition": f"attachment; filename*=UTF-8''{quote(target.name)}.zip"},
         )

@@ -48,3 +48,6 @@ export const searchFiles = async (q) => {
 /** URL that streams a single file, inline for preview or as an attachment. */
 export const fileUrl = (path, download = false) =>
   `${BACKEND_URL}/files/raw?path=${encodeURIComponent(path)}${download ? '&download=true' : ''}`;
+
+/** URL that streams a folder as a ZIP attachment. */
+export const zipUrl = (path) => `${BACKEND_URL}/files/zip?path=${encodeURIComponent(path)}`;

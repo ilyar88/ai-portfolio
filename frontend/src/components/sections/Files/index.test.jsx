@@ -9,6 +9,7 @@ import { listDir } from '../../../services/filesService';
 vi.mock('../../../services/filesService', () => ({
   listDir: vi.fn(),
   fileUrl: vi.fn((path, download) => `http://api/files/raw?path=${path}${download ? '&download=true' : ''}`),
+  zipUrl: vi.fn((path) => `http://api/files/zip?path=${path}`),
 }));
 
 // FilesSection reads the current folder from the router and navigates on click.

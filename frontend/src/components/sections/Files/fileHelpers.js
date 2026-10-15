@@ -19,6 +19,19 @@ export const openShortcut = (path) => {
     .catch(() => tab?.close())
 }
 
+export const copyShortcut = (path, btn) => {
+  fetch(fileUrl(path))
+    .then((r) => r.text())
+    .then((t) => {
+      const link = t.match(/^URL=(.+)$/m)?.[1].trim()
+      if (!link) return
+      navigator.clipboard.writeText(link)
+      btn.textContent = 'Copied!'
+      setTimeout(() => { btn.textContent = 'Copy url' }, 1500)
+    })
+    .catch(() => {})
+}
+
 export const formatSize = (bytes) => {
   if (bytes == null) return '—'
   const units = ['B', 'KB', 'MB', 'GB']

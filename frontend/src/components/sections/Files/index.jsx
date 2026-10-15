@@ -13,9 +13,10 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowLeft, ChevronRight, Download, Home, Search } from 'lucide-react'
-import { fileUrl, listDir, searchFiles } from '../../../services/filesService'
-import { displayName, formatDate, iconFor, openShortcut, typeLabel } from './fileHelpers'
+import { ArrowLeft, ChevronRight, Home, Search } from 'lucide-react'
+import { listDir, searchFiles } from '../../../services/filesService'
+import { openShortcut } from './fileHelpers'
+import { FilesTable } from './filesTable'
 import { PreviewModal } from './PreviewModal'
 
 export const FilesSection = () => {
@@ -145,59 +146,14 @@ export const FilesSection = () => {
           <>
             {searchError && <div className="p-6 text-red-400 text-sm">{searchError}</div>}
             {!searchError && (
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="text-left text-gray-400 border-b border-blue-500/20">
-                      <th className="px-4 py-2 font-medium">Name</th>
-                      <th className="px-4 py-2 font-medium">Location</th>
-                      <th className="px-4 py-2 font-medium hidden sm:table-cell">Type</th>
-                      <th className="px-4 py-2 font-medium text-left">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {searchResults.map((entry) => {
-                      const Icon = iconFor(entry)
-                      return (
-                        <tr
-                          key={entry.path}
-                          className="border-b border-white/5 hover:bg-white/5 cursor-pointer"
-                          onClick={() => openSearchEntry(entry)}
-                        >
-                          <td className="px-4 py-2">
-                            <span className="flex items-center gap-2">
-                              <Icon className={`w-4 h-4 ${entry.type === 'dir' ? 'text-blue-400' : 'text-gray-400'}`} />
-                              <span className="text-gray-200">{displayName(entry)}</span>
-                            </span>
-                          </td>
-                          <td className="px-4 py-2 text-gray-400 font-mono">/{entry.dir}</td>
-                          <td className="px-4 py-2 text-gray-400 hidden sm:table-cell">{typeLabel(entry)}</td>
-                          <td className="px-4 py-2 text-left" onClick={(e) => e.stopPropagation()}>
-                            <div className="flex items-center justify-start gap-3">
-                              <button onClick={() => openSearchEntry(entry)} className="w-16 text-left text-blue-400 hover:text-blue-300">
-                                {entry.ext === 'url' ? 'Open url' : 'Open'}
-                              </button>
-                              {entry.type === 'file' && entry.ext !== 'url' && (
-                                <a
-                                  href={fileUrl(entry.path, true)}
-                                  className="text-blue-400 hover:text-blue-300 flex items-center gap-1"
-                                >
-                                  <Download className="w-3.5 h-3.5" /> Download
-                                </a>
-                              )}
-                            </div>
-                          </td>
-                        </tr>
-                      )
-                    })}
-                    {!searchLoading && searchResults.length === 0 && (
-                      <tr>
-                        <td colSpan={4} className="px-4 py-6 text-center text-gray-500">No matches</td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
-              </div>
+              <FilesTable
+                search
+                entries={searchResults}
+                getPath={(entry) => entry.path}
+                onOpen={openSearchEntry}
+                showEmpty={!searchLoading}
+                emptyText="No matches"
+              />
             )}
           </>
         ) : (
@@ -205,63 +161,13 @@ export const FilesSection = () => {
             {error && <div className="p-6 text-red-400 text-sm">{error}</div>}
 
             {!error && (
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="text-left text-gray-400 border-b border-blue-500/20">
-                      <th className="px-4 py-2 font-medium">Name</th>
-                      <th className="px-4 py-2 font-medium hidden sm:table-cell">Type</th>
-                      <th className="px-4 py-2 font-medium hidden md:table-cell">Modified</th>
-                      <th className="px-4 py-2 font-medium text-left">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {data?.entries?.map((entry) => {
-                      const Icon = iconFor(entry)
-                      const childPath = path ? `${path}/${entry.name}` : entry.name
-                      return (
-                        <tr
-                          key={entry.name}
-                          className="border-b border-white/5 hover:bg-white/5 cursor-pointer"
-                          onClick={() => openEntry(entry)}
-                        >
-                          <td className="px-4 py-2">
-                            <span className="flex items-center gap-2">
-                              <Icon className={`w-4 h-4 ${entry.type === 'dir' ? 'text-blue-400' : 'text-gray-400'}`} />
-                              <span className="text-gray-200">{displayName(entry)}</span>
-                              {entry.type === 'dir' && entry.itemCount != null && (
-                                <span className="text-xs text-gray-500">({entry.itemCount})</span>
-                              )}
-                            </span>
-                          </td>
-                          <td className="px-4 py-2 text-gray-400 whitespace-nowrap hidden sm:table-cell">{typeLabel(entry)}</td>
-                          <td className="px-4 py-2 text-gray-400 whitespace-nowrap hidden md:table-cell">{formatDate(entry.modified)}</td>
-                          <td className="px-4 py-2 text-left" onClick={(e) => e.stopPropagation()}>
-                            <div className="flex items-center justify-start gap-3">
-                              <button onClick={() => openEntry(entry)} className="w-16 text-left text-blue-400 hover:text-blue-300">
-                                {entry.ext === 'url' ? 'Open url' : 'Open'}
-                              </button>
-                              {entry.type === 'file' && entry.ext !== 'url' && (
-                                <a
-                                  href={fileUrl(childPath, true)}
-                                  className="text-blue-400 hover:text-blue-300 flex items-center gap-1"
-                                >
-                                  <Download className="w-3.5 h-3.5" /> Download
-                                </a>
-                              )}
-                            </div>
-                          </td>
-                        </tr>
-                      )
-                    })}
-                    {!loading && !error && data?.entries?.length === 0 && (
-                      <tr>
-                        <td colSpan={4} className="px-4 py-6 text-center text-gray-500">Empty folder</td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
-              </div>
+              <FilesTable
+                entries={data?.entries}
+                getPath={(entry) => (path ? `${path}/${entry.name}` : entry.name)}
+                onOpen={openEntry}
+                showEmpty={!loading}
+                emptyText="Empty folder"
+              />
             )}
           </>
         )}
