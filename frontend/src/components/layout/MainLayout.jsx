@@ -3,7 +3,7 @@ import { NavBar } from './NavBar'
 
 export const MainLayout = ({ children }) => {
   return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top,_#224b78_0%,_#0d1427_65%)] text-white overflow-hidden">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top,_#1b3c60_0%,_#0d1427_65%)] text-white overflow-hidden">
       <div className="fixed inset-0 bg-grid-pattern opacity-10 pointer-events-none" />
       <NavBar />
       <main className="pt-24 px-6 max-w-7xl mx-auto">
