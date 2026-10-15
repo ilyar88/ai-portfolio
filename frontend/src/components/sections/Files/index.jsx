@@ -152,7 +152,7 @@ export const FilesSection = () => {
                       <th className="px-4 py-2 font-medium">Name</th>
                       <th className="px-4 py-2 font-medium">Location</th>
                       <th className="px-4 py-2 font-medium hidden sm:table-cell">Type</th>
-                      <th className="px-4 py-2 font-medium text-right">Actions</th>
+                      <th className="px-4 py-2 font-medium text-left">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -172,9 +172,9 @@ export const FilesSection = () => {
                           </td>
                           <td className="px-4 py-2 text-gray-400 font-mono">/{entry.dir}</td>
                           <td className="px-4 py-2 text-gray-400 hidden sm:table-cell">{typeLabel(entry)}</td>
-                          <td className="px-4 py-2 text-right" onClick={(e) => e.stopPropagation()}>
-                            <div className="flex items-center justify-end gap-3">
-                              <button onClick={() => openSearchEntry(entry)} className="text-blue-400 hover:text-blue-300">
+                          <td className="px-4 py-2 text-left" onClick={(e) => e.stopPropagation()}>
+                            <div className="flex items-center justify-start gap-3">
+                              <button onClick={() => openSearchEntry(entry)} className="w-16 text-left text-blue-400 hover:text-blue-300">
                                 {entry.ext === 'url' ? 'Open url' : 'Open'}
                               </button>
                               {entry.type === 'file' && entry.ext !== 'url' && (
@@ -213,7 +213,7 @@ export const FilesSection = () => {
                       <th className="px-4 py-2 font-medium hidden sm:table-cell">Type</th>
                       <th className="px-4 py-2 font-medium hidden sm:table-cell">Size</th>
                       <th className="px-4 py-2 font-medium hidden md:table-cell">Modified</th>
-                      <th className="px-4 py-2 font-medium text-right">Actions</th>
+                      <th className="px-4 py-2 font-medium text-left">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -240,9 +240,9 @@ export const FilesSection = () => {
                             {entry.type === 'dir' ? '—' : formatSize(entry.size)}
                           </td>
                           <td className="px-4 py-2 text-gray-400 hidden md:table-cell">{formatDate(entry.modified)}</td>
-                          <td className="px-4 py-2 text-right" onClick={(e) => e.stopPropagation()}>
-                            <div className="flex items-center justify-end gap-3">
-                              <button onClick={() => openEntry(entry)} className="text-blue-400 hover:text-blue-300">
+                          <td className="px-4 py-2 text-left" onClick={(e) => e.stopPropagation()}>
+                            <div className="flex items-center justify-start gap-3">
+                              <button onClick={() => openEntry(entry)} className="w-16 text-left text-blue-400 hover:text-blue-300">
                                 {entry.ext === 'url' ? 'Open url' : 'Open'}
                               </button>
                               {entry.type === 'file' && entry.ext !== 'url' && (
