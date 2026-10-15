@@ -15,7 +15,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowLeft, ChevronRight, Download, Home, Search } from 'lucide-react'
 import { fileUrl, listDir, searchFiles } from '../../../services/filesService'
-import { displayName, formatDate, formatSize, iconFor, openShortcut, typeLabel } from './fileHelpers'
+import { displayName, formatDate, iconFor, openShortcut, typeLabel } from './fileHelpers'
 import { PreviewModal } from './PreviewModal'
 
 export const FilesSection = () => {
@@ -211,7 +211,6 @@ export const FilesSection = () => {
                     <tr className="text-left text-gray-400 border-b border-blue-500/20">
                       <th className="px-4 py-2 font-medium">Name</th>
                       <th className="px-4 py-2 font-medium hidden sm:table-cell">Type</th>
-                      <th className="px-4 py-2 font-medium hidden sm:table-cell">Size</th>
                       <th className="px-4 py-2 font-medium hidden md:table-cell">Modified</th>
                       <th className="px-4 py-2 font-medium text-left">Actions</th>
                     </tr>
@@ -235,11 +234,8 @@ export const FilesSection = () => {
                               )}
                             </span>
                           </td>
-                          <td className="px-4 py-2 text-gray-400 hidden sm:table-cell">{typeLabel(entry)}</td>
-                          <td className="px-4 py-2 text-gray-400 hidden sm:table-cell">
-                            {entry.type === 'dir' ? '—' : formatSize(entry.size)}
-                          </td>
-                          <td className="px-4 py-2 text-gray-400 hidden md:table-cell">{formatDate(entry.modified)}</td>
+                          <td className="px-4 py-2 text-gray-400 whitespace-nowrap hidden sm:table-cell">{typeLabel(entry)}</td>
+                          <td className="px-4 py-2 text-gray-400 whitespace-nowrap hidden md:table-cell">{formatDate(entry.modified)}</td>
                           <td className="px-4 py-2 text-left" onClick={(e) => e.stopPropagation()}>
                             <div className="flex items-center justify-start gap-3">
                               <button onClick={() => openEntry(entry)} className="w-16 text-left text-blue-400 hover:text-blue-300">
@@ -260,7 +256,7 @@ export const FilesSection = () => {
                     })}
                     {!loading && !error && data?.entries?.length === 0 && (
                       <tr>
-                        <td colSpan={5} className="px-4 py-6 text-center text-gray-500">Empty folder</td>
+                        <td colSpan={4} className="px-4 py-6 text-center text-gray-500">Empty folder</td>
                       </tr>
                     )}
                   </tbody>
