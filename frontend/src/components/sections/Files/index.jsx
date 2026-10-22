@@ -8,8 +8,7 @@
  * button and deep links work. Clicking a folder row navigates into it; clicking
  * a file row opens a preview ({@link PreviewModal}).
  *
- * The top level shows its folders as glass cards ({@link FolderCards}); inside a
- * folder, its entries appear one after another as preview tiles ({@link FileTiles}).
+ * Folders show as glass cards and files as preview tiles ({@link FolderView}).
  * Markdown notes are left out of that view; search still finds them.
  *
  * Helpers live in `./fileHelpers`; the preview dialog in `./PreviewModal`.
@@ -20,9 +19,8 @@ import { motion } from 'framer-motion'
 import { ArrowLeft, ChevronRight, Home, Search } from 'lucide-react'
 import { listDir, searchFiles } from '../../../services/filesService'
 import { openShortcut } from './fileHelpers'
-import { FileTiles } from './FileTiles'
 import { FilesTable } from './filesTable'
-import { FolderCards } from './FolderCards'
+import { FolderView } from './FolderView'
 import { PreviewModal } from './PreviewModal'
 
 export const FilesSection = () => {
@@ -58,9 +56,6 @@ export const FilesSection = () => {
   // Files in the current folder - the preview modal pages back/forward through these.
   const fileEntries = (data?.entries ?? []).filter((e) => e.type === 'file')
   const visibleEntries = (data?.entries ?? []).filter((e) => e.ext !== 'md')
-  const folderCards = path === '' ? visibleEntries.filter((e) => e.type === 'dir') : []
-  const tileEntries = path === '' ? visibleEntries.filter((e) => e.type !== 'dir') : visibleEntries
-  const entryPath = (entry) => (path ? `${path}/${entry.name}` : entry.name)
 
   const openEntry = (entry) => {
     if (entry.type === 'dir') go(path ? `${path}/${entry.name}` : entry.name)
@@ -171,15 +166,13 @@ export const FilesSection = () => {
             {error && <div className="p-6 text-red-400 text-sm">{error}</div>}
 
             {!error && !loading && (
-              <div className="space-y-4 p-4">
-                {folderCards.length > 0 && <FolderCards entries={folderCards} onOpen={openEntry} />}
-                {tileEntries.length > 0 && (
-                  <FileTiles key={path} entries={tileEntries} getPath={entryPath} onOpen={openEntry} />
-                )}
-                {visibleEntries.length === 0 && (
-                  <div className="py-6 text-center text-gray-500">Empty folder</div>
-                )}
-              </div>
+              <FolderView
+                key={path}
+                root={path === ''}
+                entries={visibleEntries}
+                getPath={(entry) => (path ? `${path}/${entry.name}` : entry.name)}
+                onOpen={openEntry}
+              />
             )}
           </>
         )}
