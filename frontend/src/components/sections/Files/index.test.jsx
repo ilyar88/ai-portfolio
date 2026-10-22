@@ -35,12 +35,12 @@ describe('FilesSection', () => {
     vi.clearAllMocks();
   });
 
-  it('renders folder and file rows returned by listDir', async () => {
+  it('renders folders as cards and files as tiles returned by listDir', async () => {
     vi.mocked(listDir).mockResolvedValue(listing);
 
     renderWithConfig(<FilesSection />);
 
-    expect(await screen.findByText('AI pictures')).toBeInTheDocument();
+    expect((await screen.findAllByText('AI pictures')).length).toBeGreaterThan(0);
     expect(screen.getByText('CV.pdf')).toBeInTheDocument();
     expect(screen.getByText('PDF file')).toBeInTheDocument();
     expect(listDir).toHaveBeenCalledWith('');
@@ -50,14 +50,42 @@ describe('FilesSection', () => {
     vi.mocked(listDir).mockResolvedValue(listing);
 
     renderWithConfig(<FilesSection />);
-    await screen.findByText('AI pictures');
+    await screen.findByText('CV.pdf');
 
-    const downloadLinks = screen.getAllByText('Download');
+    const downloadLinks = screen.getAllByLabelText(/^Download /);
     expect(downloadLinks).toHaveLength(1);
-    expect(downloadLinks[0].closest('a')).toHaveAttribute(
+    expect(downloadLinks[0]).toHaveAttribute(
       'href',
       'http://api/files/raw?path=CV.pdf&download=true',
     );
+  });
+
+  it('leaves markdown notes out of the folder view', async () => {
+    vi.mocked(listDir).mockResolvedValue({
+      ...listing,
+      entries: [
+        ...listing.entries,
+        { name: 'Resume.md', type: 'file', size: 10, modified: null, ext: 'md', itemCount: null },
+      ],
+    });
+
+    renderWithConfig(<FilesSection />);
+
+    await screen.findByText('CV.pdf');
+    expect(screen.queryByText('Resume.md')).not.toBeInTheDocument();
+  });
+
+  it('opens a folder after its card is clicked', async () => {
+    vi.useFakeTimers();
+    vi.mocked(listDir).mockResolvedValue(listing);
+
+    renderWithConfig(<FilesSection />);
+    await vi.waitFor(() => expect(screen.getAllByText('AI pictures').length).toBeGreaterThan(0));
+    fireEvent.click(screen.getAllByText('AI pictures')[0]);
+    vi.advanceTimersByTime(400);
+
+    expect(navigate).toHaveBeenCalledWith('/files/AI pictures');
+    vi.useRealTimers();
   });
 
   it('shows the error message when the listing fails', async () => {
