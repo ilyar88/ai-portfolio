@@ -50,7 +50,7 @@ describe('NavBar', () => {
     renderWithRouterAndConfig(<NavBar />);
     
     expect(screen.getByTestId('terminal-icon')).toBeInTheDocument();
-    expect(screen.getByText('Ilya.dev')).toBeInTheDocument();
+    expect(screen.getByText('AI portfolio')).toBeInTheDocument();
   });
   
   it('renders the desktop navigation', () => {

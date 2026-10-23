@@ -18,7 +18,7 @@ export const NavBar = () => {
           >
             <Link to="/" className="flex items-center space-x-2">
               <Terminal className="w-6 h-6 text-blue-500" />
-              <span className="text-xl font-mono font-bold hover:text-[#00C8DC] transition-colors">Ilya.dev</span>
+              <span className="text-xl font-mono font-bold hover:text-[#00C8DC] transition-colors">AI portfolio</span>
             </Link>
           </motion.div>
 
