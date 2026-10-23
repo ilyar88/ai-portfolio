@@ -16,7 +16,7 @@ export const NavBar = () => {
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
           >
-            <Link to="/files" className="flex items-center space-x-2">
+            <Link to="/" className="flex items-center space-x-2">
               <Terminal className="w-6 h-6 text-blue-500" />
               <span className="text-xl font-mono font-bold hover:text-[#00C8DC] transition-colors">Ilya.dev</span>
             </Link>

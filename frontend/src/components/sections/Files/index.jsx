@@ -58,7 +58,7 @@ export const FilesSection = () => {
     return () => { active = false }
   }, [path])
 
-  const go = useCallback((p) => navigate(`/files${p ? `/${p}` : ''}`), [navigate])
+  const go = useCallback((p) => navigate(p ? `/files/${p}` : '/'), [navigate])
 
   // Files in the current folder - the preview modal pages back/forward through these.
   const fileEntries = (data?.entries ?? []).filter((e) => e.type === 'file')

@@ -96,6 +96,6 @@ describe('NavBar', () => {
     renderWithRouterAndConfig(<NavBar />);
     
     const homeLink = screen.getByTestId('router-link');
-    expect(homeLink).toHaveAttribute('href', '/files');
+    expect(homeLink).toHaveAttribute('href', '/');
   });
 }); 
