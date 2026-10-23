@@ -55,16 +55,16 @@ export const sections = {
     path: '/about-me',
     color: 'from-blue-500 to-cyan-500'
   },
-  projects: {
-    icon: Code,
-    title: 'GitHub projects',
-    path: '/projects',
-    color: 'from-emerald-500 to-green-500'
-  },
   agent: {
     icon: Bot,
     title: 'AI agent assistant',
     path: '/agent',
     color: 'from-blue-400 to-indigo-500'
+  },
+  projects: {
+    icon: Code,
+    title: 'GitHub projects',
+    path: '/projects',
+    color: 'from-emerald-500 to-green-500'
   }
 } 
