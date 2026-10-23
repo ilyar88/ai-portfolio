@@ -2,14 +2,12 @@
  * FilesTable
  * ----------
  * The table shared by the folder listing and the search results: one row per
- * entry with its open / download / zip / copy-url actions.
+ * entry with its open / copy-url actions.
  *
  * `search` switches the Modified column for a Location column. `getPath` maps an
  * entry to its path relative to the files root; `onOpen` is the row/Open handler.
  */
 import PropTypes from 'prop-types'
-import { Download } from 'lucide-react'
-import { fileUrl, zipUrl } from '../../../services/filesService'
 import { copyShortcut, displayName, formatDate, iconFor, typeLabel } from './fileHelpers'
 
 const LINK = 'text-blue-400 hover:text-blue-300'
@@ -57,18 +55,8 @@ export const FilesTable = ({ entries, search = false, getPath, onOpen, showEmpty
                   <button onClick={() => onOpen(entry)} className={`w-16 text-left ${LINK}`}>
                     {entry.ext === 'url' ? 'Open url' : 'Open'}
                   </button>
-                  {entry.type === 'file' && entry.ext !== 'url' && (
-                    <a href={fileUrl(path, true)} className={`${LINK} flex items-center gap-1`}>
-                      <Download className="w-3.5 h-3.5" /> Download
-                    </a>
-                  )}
                   {entry.ext === 'url' && (
                     <button onClick={(e) => copyShortcut(path, e.currentTarget)} className={LINK}>Copy url</button>
-                  )}
-                  {entry.type === 'dir' && (
-                    <a href={zipUrl(path)} className={`${LINK} flex items-center gap-1`}>
-                      <Download className="w-3.5 h-3.5" /> ZIP
-                    </a>
                   )}
                 </div>
               </td>

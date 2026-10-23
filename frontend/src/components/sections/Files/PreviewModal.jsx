@@ -8,7 +8,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { renderAsync } from 'docx-preview'
-import { ChevronLeft, ChevronRight, Download, X } from 'lucide-react'
+import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 import { fileUrl } from '../../../services/filesService'
 import { IMAGE_EXT, TEXT_EXT, WORD_EXT } from './fileHelpers'
 
@@ -99,12 +99,6 @@ export const PreviewModal = ({ files, dirPath, startName, onClose }) => {
             <span className="text-sm text-gray-200 font-mono truncate">{item.name}</span>
           </div>
           <div className="flex items-center gap-3 shrink-0">
-            <a
-              href={fileUrl(item.path, true)}
-              className="text-blue-400 hover:text-blue-300 flex items-center gap-1 text-sm"
-            >
-              <Download className="w-4 h-4" /> Download
-            </a>
             <button onClick={onClose} className="text-gray-400 hover:text-white" aria-label="Close">
               <X className="w-5 h-5" />
             </button>
@@ -142,7 +136,7 @@ export const PreviewModal = ({ files, dirPath, startName, onClose }) => {
             <pre className="text-xs text-gray-300 whitespace-pre-wrap break-words">{text ?? 'Loading…'}</pre>
           )}
           {!isImage && !isPdf && !isWord && !isText && (
-            <p className="text-gray-400 text-sm">No preview available. Use Download to view this file.</p>
+            <p className="text-gray-400 text-sm">No preview available for this file.</p>
           )}
         </div>
       </div>

@@ -46,20 +46,6 @@ describe('FilesSection', () => {
     expect(listDir).toHaveBeenCalledWith('');
   });
 
-  it('offers a download link only for files', async () => {
-    vi.mocked(listDir).mockResolvedValue(listing);
-
-    renderWithConfig(<FilesSection />);
-    await screen.findByText('CV.pdf');
-
-    const downloadLinks = screen.getAllByLabelText(/^Download /);
-    expect(downloadLinks).toHaveLength(1);
-    expect(downloadLinks[0]).toHaveAttribute(
-      'href',
-      'http://api/files/raw?path=CV.pdf&download=true',
-    );
-  });
-
   it('leaves markdown notes out of the folder view', async () => {
     vi.mocked(listDir).mockResolvedValue({
       ...listing,

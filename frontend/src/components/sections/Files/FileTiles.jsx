@@ -11,7 +11,7 @@
 import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
-import { Download, ExternalLink } from 'lucide-react'
+import { ExternalLink } from 'lucide-react'
 import { fileUrl } from '../../../services/filesService'
 import { IMAGE_EXT, displayName, iconFor, typeLabel } from './fileHelpers'
 
@@ -97,15 +97,6 @@ export const FileTiles = ({ entries, getPath, onOpen }) => (
               {typeLabel(entry)}
             </span>
           </button>
-          {entry.type === 'file' && entry.ext !== 'url' && (
-            <a
-              href={fileUrl(path, true)}
-              aria-label={`Download ${entry.name}`}
-              className="absolute right-4 top-4 rounded-full bg-blue-950/80 p-1.5 text-blue-300 hover:text-blue-100"
-            >
-              <Download className="h-3.5 w-3.5" />
-            </a>
-          )}
         </motion.div>
       )
     })}
