@@ -132,7 +132,13 @@ export const useVoiceChat = ({ onEvent } = {}) => {
     else start();
   }, [start, stop]);
 
+  // Send a JSON message to the backend voice bridge (ignored while not connected).
+  const send = useCallback((msg) => {
+    const ws = refs.current.ws;
+    if (ws?.readyState === WebSocket.OPEN) ws.send(JSON.stringify(msg));
+  }, []);
+
   useEffect(() => stop, [stop]);
 
-  return { status, toggle, start, stop };
+  return { status, toggle, start, stop, send };
 };
