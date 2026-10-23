@@ -5,9 +5,11 @@ import os
 import pathlib
 from datetime import date
 
+from fastapi import WebSocketDisconnect
 from websockets.client import connect
 from websockets.exceptions import ConnectionClosed
 
+from app.logic.folder_explainer import folder_parts
 from app.logs.logger import get_logger
 
 logger = get_logger(__name__)
@@ -84,9 +86,19 @@ class GeminiVoiceBridge:
             tg.create_task(self._session_loop())
 
     async def _browser_to_gemini(self):
-        """Forward raw PCM16 mic chunks from the browser to Gemini."""
+        """Forward raw PCM16 mic chunks from the browser to Gemini.
+
+        A text frame ``{"type": "explain", "path": "<folder>"}`` asks Gemini to
+        explain that folder of backend/docs instead.
+        """
         while True:
-            data = await self.browser_ws.receive_bytes()
+            message = await self.browser_ws.receive()
+            if message["type"] == "websocket.disconnect":
+                raise WebSocketDisconnect(message.get("code", 1000))
+            if message.get("text") is not None:
+                await self._explain_folder(json.loads(message["text"]).get("path", ""))
+                continue
+            data = message["bytes"]
             gemini_ws = self.gemini_ws
             if gemini_ws is None:
                 continue
@@ -101,6 +113,21 @@ class GeminiVoiceBridge:
                 }))
             except ConnectionClosed:
                 pass
+
+    async def _explain_folder(self, rel: str):
+        """Ask Gemini to explain a docs folder (see folder_explainer)."""
+        parts = folder_parts(DOCS_DIR, rel)
+        if self.gemini_ws is None or parts is None:
+            return
+        try:
+            await self.gemini_ws.send(json.dumps({
+                "client_content": {
+                    "turns": [{"role": "user", "parts": parts}],
+                    "turn_complete": True,
+                }
+            }))
+        except ConnectionClosed:
+            pass
 
     async def _session_loop(self):
         first_connect = True
