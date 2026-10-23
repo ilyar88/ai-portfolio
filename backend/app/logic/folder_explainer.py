@@ -32,10 +32,11 @@ def folder_parts(docs_dir: pathlib.Path, rel: str) -> list | None:
         else:
             lines.append(f"- {f.name} ({ext[1:].upper() or 'file'})")
     prompt = (
-        f"The visitor just opened the folder '{rel or 'docs'}' on the Knowledge and experience "
-        "page. It contains:\n" + "\n".join(lines) + "\nExplain out loud what is inside this folder, "
-        "using the knowledge above for context, the attached pictures for what they show, "
-        "and the names or titles for links and PDFs. Keep it to a short spoken paragraph, "
-        "in the language you have been speaking."
+        f"The visitor opened the folder '{rel or 'docs'}'. It contains:\n" + "\n".join(lines) + "\nExplain out loud what is inside this folder, "
+        "drawing on the parts of the knowledge above (the markdown notes) that are relevant to "
+        "it, the attached pictures for what they show, and the names or titles for links "
+        "and PDFs. Start straight with the explanation: no greeting, no welcome, no mention "
+        "of the portfolio or of the visitor, and no closing question. Speak once, as a "
+        "short paragraph, in English."
     )
     return [{"text": prompt}, *images]

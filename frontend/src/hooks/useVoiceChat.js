@@ -49,7 +49,9 @@ const playChunk = (refs, arrayBuffer) => {
  * Captures the microphone in the browser, streams PCM to the backend (which
  * relays to the Gemini Live API), and plays Gemini's audio response back.
  */
-export const useVoiceChat = ({ onEvent } = {}) => {
+// `guide` makes the backend skip the greeting and ignore the mic: Gemini then only
+// speaks when asked to explain something (see the 'explain' message below).
+export const useVoiceChat = ({ onEvent, guide = false } = {}) => {
   const [status, setStatus] = useState('idle'); // idle | connecting | live | error
   const refs = useRef({});
   const activeRef = useRef(false);
@@ -91,7 +93,7 @@ export const useVoiceChat = ({ onEvent } = {}) => {
       await r.inCtx.resume?.();
       await r.outCtx.resume?.();
 
-      const ws = new WebSocket(WS_URL);
+      const ws = new WebSocket(guide ? `${WS_URL}?mode=guide` : WS_URL);
       ws.binaryType = 'arraybuffer';
       r.ws = ws;
       ws.onopen = () => { if (activeRef.current) setStatus('live'); };
@@ -125,7 +127,7 @@ export const useVoiceChat = ({ onEvent } = {}) => {
       setStatus('error');
       stop();
     }
-  }, [onEvent, stop]);
+  }, [onEvent, guide, stop]);
 
   const toggle = useCallback(() => {
     if (activeRef.current) stop();

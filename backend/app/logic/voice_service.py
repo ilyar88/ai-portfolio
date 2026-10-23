@@ -63,8 +63,11 @@ class GeminiVoiceBridge:
 
     MODEL = "gemini-3.8-live"
 
-    def __init__(self, browser_ws):
+    def __init__(self, browser_ws, guide=False):
         self.browser_ws = browser_ws
+        # Guide mode: no greeting and the mic is ignored, so Gemini only speaks
+        # when a folder is explained.
+        self.guide = guide
         api_key = os.environ.get("GEMINI_API_KEY")
         self.uri = (
             "wss://generativelanguage.googleapis.com/ws/"
@@ -99,6 +102,8 @@ class GeminiVoiceBridge:
                 await self._explain_folder(json.loads(message["text"]).get("path", ""))
                 continue
             data = message["bytes"]
+            if self.guide:
+                continue
             gemini_ws = self.gemini_ws
             if gemini_ws is None:
                 continue
@@ -160,7 +165,7 @@ class GeminiVoiceBridge:
                     }
                 }))
                 await gemini_ws.recv()
-                if first_connect:
+                if first_connect and not self.guide:
                     asyncio.create_task(self._greet_if_silent(gemini_ws))
                     first_connect = False
                 try:

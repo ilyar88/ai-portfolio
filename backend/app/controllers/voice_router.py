@@ -16,7 +16,7 @@ class VoiceRouter:
     async def _voice(self, websocket: WebSocket):
         await websocket.accept()
         logger.info("Voice websocket connected")
-        bridge = GeminiVoiceBridge(websocket)
+        bridge = GeminiVoiceBridge(websocket, guide=websocket.query_params.get("mode") == "guide")
         try:
             await bridge.run()
         except* WebSocketDisconnect:
