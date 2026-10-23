@@ -122,7 +122,7 @@ export const FilesSection = () => {
               </li>
               <li className="flex items-start gap-3 rounded-xl border border-blue-400/20 bg-gradient-to-br from-blue-500/20 to-blue-900/10 p-3 text-sm text-blue-50 backdrop-blur-md">
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-500 text-xs font-bold text-white">3</span>
-                Gemini voice will guide you about Ilya&apos;s experience. 🙂
+                Gemini voice will guide you about Ilya&apos;s experience. 🤖
               </li>
             </ol>
           </div>
