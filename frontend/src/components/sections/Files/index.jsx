@@ -108,7 +108,7 @@ export const FilesSection = () => {
       className="max-w-4xl mx-auto pb-12"
     >
       {path === '' && (
-        <div className="flex flex-col md:flex-row items-center gap-4 mb-6 md:-mx-10 rounded-2xl border border-blue-400/30 bg-blue-950/40 p-4">
+        <div className="flex flex-col md:flex-row items-center gap-4 mb-6 md:-mx-8 rounded-2xl border border-blue-400/30 bg-blue-950/40 p-4">
           <div className="md:w-1/4 w-full">
             <h3 className="mb-3 text-xs font-medium uppercase tracking-widest text-blue-300">How it works</h3>
             <ol className="space-y-3">
