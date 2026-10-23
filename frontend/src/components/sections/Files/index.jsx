@@ -11,12 +11,16 @@
  * Folders show as glass cards and files as preview tiles ({@link FolderView}).
  * Markdown notes are left out of that view; search still finds them.
  *
+ * The mic button next to Search starts a Gemini voice session; while it is live,
+ * opening a folder makes Gemini explain what is inside it.
+ *
  * Helpers live in `./fileHelpers`; the preview dialog in `./PreviewModal`.
  */
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowLeft, ChevronRight, Home, Search } from 'lucide-react'
+import { ArrowLeft, ChevronRight, Home, Mic, Search } from 'lucide-react'
+import { useVoiceChat } from '../../../hooks/useVoiceChat'
 import { listDir, searchFiles } from '../../../services/filesService'
 import { openShortcut } from './fileHelpers'
 import { FilesTable } from './filesTable'
@@ -31,6 +35,7 @@ export const FilesSection = () => {
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(true)
+  const { status: voiceStatus, toggle: toggleVoice, send: sendVoice } = useVoiceChat()
   const [preview, setPreview] = useState(null)
 
   const [query, setQuery] = useState('')
@@ -58,8 +63,11 @@ export const FilesSection = () => {
   const visibleEntries = (data?.entries ?? []).filter((e) => e.ext !== 'md')
 
   const openEntry = (entry) => {
-    if (entry.type === 'dir') go(path ? `${path}/${entry.name}` : entry.name)
-    else if (entry.ext === 'url') openShortcut(path ? `${path}/${entry.name}` : entry.name)
+    if (entry.type === 'dir') {
+      const folder = path ? `${path}/${entry.name}` : entry.name
+      sendVoice({ type: 'explain', path: folder })
+      go(folder)
+    } else if (entry.ext === 'url') openShortcut(path ? `${path}/${entry.name}` : entry.name)
     else setPreview(entry.name)
   }
 
@@ -109,6 +117,14 @@ export const FilesSection = () => {
           className="flex items-center gap-1 rounded-md border border-blue-500/30 px-3 py-1.5 text-sm text-blue-400 hover:text-blue-300 hover:border-blue-400"
         >
           <Search className="w-4 h-4" /> Search
+        </button>
+        <button
+          onClick={toggleVoice}
+          aria-label={voiceStatus === 'idle' || voiceStatus === 'error' ? 'Start folder voice guide' : 'Stop folder voice guide'}
+          aria-pressed={voiceStatus === 'live' || voiceStatus === 'connecting'}
+          className={`rounded-md border px-2 py-1.5 ${voiceStatus === 'live' ? 'border-red-400 text-red-400 animate-pulse' : voiceStatus === 'connecting' ? 'border-yellow-400 text-yellow-400' : 'border-blue-500/30 text-blue-400 hover:text-blue-300 hover:border-blue-400'}`}
+        >
+          <Mic className="w-4 h-4" />
         </button>
         {searchResults != null && (
           <button onClick={clearSearch} className="text-sm text-gray-400 hover:text-gray-200">
