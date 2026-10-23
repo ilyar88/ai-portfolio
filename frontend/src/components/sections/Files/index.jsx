@@ -108,7 +108,16 @@ export const FilesSection = () => {
       className="max-w-4xl mx-auto pb-12"
     >
       {path === '' && (
-        <div className="flex flex-col md:flex-row items-center gap-4 mb-6 rounded-2xl border border-blue-400/30 bg-blue-950/40 p-4">
+        <h1 className="mb-6 text-center text-3xl font-bold md:text-4xl">
+          <span className="bg-gradient-to-r from-blue-300 via-cyan-300 to-indigo-400 bg-clip-text text-transparent">
+            Ilya Rahmilevich
+          </span>
+          <span className="mx-3 font-light text-blue-400/60">|</span>
+          <span className="text-blue-100">QA Automation Engineer</span>
+        </h1>
+      )}
+      {path === '' && (
+        <div className="flex flex-col md:flex-row items-center md:justify-center gap-4 mb-6 rounded-2xl border border-blue-400/30 bg-blue-950/40 p-4">
           <div className="md:w-1/4 w-full">
             <h3 className="mb-3 text-xs font-medium uppercase tracking-widest text-blue-300">How it works</h3>
             <ol className="space-y-3">
@@ -126,7 +135,7 @@ export const FilesSection = () => {
               </li>
             </ol>
           </div>
-          <img src="/ai-portfolio-banner.webp" alt="AI portfolio" className="md:w-3/4 w-full rounded-xl contrast-110 saturate-110" />
+          <img src="/ai-portfolio-banner.webp" alt="AI portfolio" className="md:w-[70%] w-full rounded-xl contrast-110 saturate-110" />
         </div>
       )}
       {/* Search */}
