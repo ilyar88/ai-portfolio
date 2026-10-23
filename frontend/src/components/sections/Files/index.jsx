@@ -8,8 +8,8 @@
  * button and deep links work. Clicking a folder row navigates into it; clicking
  * a file row opens a preview ({@link PreviewModal}).
  *
- * The top level shows its folders as glass cards ({@link FolderCards}); inside a
- * folder, its entries appear one after another as preview tiles ({@link FileTiles}).
+ * Folders at every level show as glass cards ({@link FolderCards}); the files of a
+ * folder appear one after another as preview tiles ({@link FileTiles}).
  * Markdown notes are left out of that view; search still finds them.
  *
  * The mic button next to Search turns on a Gemini voice guide; while it is on,
@@ -63,8 +63,8 @@ export const FilesSection = () => {
   // Files in the current folder - the preview modal pages back/forward through these.
   const fileEntries = (data?.entries ?? []).filter((e) => e.type === 'file')
   const visibleEntries = (data?.entries ?? []).filter((e) => e.ext !== 'md')
-  const folderCards = path === '' ? visibleEntries.filter((e) => e.type === 'dir') : []
-  const tileEntries = path === '' ? visibleEntries.filter((e) => e.type !== 'dir') : visibleEntries
+  const folderCards = visibleEntries.filter((e) => e.type === 'dir')
+  const tileEntries = visibleEntries.filter((e) => e.type !== 'dir')
   const entryPath = (entry) => (path ? `${path}/${entry.name}` : entry.name)
 
   const openEntry = (entry) => {
