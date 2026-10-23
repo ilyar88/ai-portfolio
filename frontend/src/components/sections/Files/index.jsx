@@ -107,6 +107,28 @@ export const FilesSection = () => {
       exit={{ opacity: 0 }}
       className="max-w-4xl mx-auto pb-12"
     >
+      {path === '' && (
+        <div className="flex flex-col md:flex-row items-center gap-4 mb-6 rounded-2xl border border-blue-400/30 bg-blue-950/40 p-4">
+          <div className="md:w-1/3 w-full">
+            <h3 className="mb-3 text-xs font-medium uppercase tracking-widest text-blue-300">How it works</h3>
+            <ol className="space-y-3">
+              <li className="flex items-start gap-3 rounded-xl border border-blue-400/20 bg-gradient-to-br from-blue-500/20 to-blue-900/10 p-3 text-sm text-blue-50 backdrop-blur-md">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-500 text-xs font-bold text-white">1</span>
+                Click the microphone button next to the Search.
+              </li>
+              <li className="flex items-start gap-3 rounded-xl border border-blue-400/20 bg-gradient-to-br from-blue-500/20 to-blue-900/10 p-3 text-sm text-blue-50 backdrop-blur-md">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-500 text-xs font-bold text-white">2</span>
+                then click on a folder.
+              </li>
+              <li className="flex items-start gap-3 rounded-xl border border-blue-400/20 bg-gradient-to-br from-blue-500/20 to-blue-900/10 p-3 text-sm text-blue-50 backdrop-blur-md">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-500 text-xs font-bold text-white">3</span>
+                Gemini voice will guide you about Ilya&apos;s experience. 🙂
+              </li>
+            </ol>
+          </div>
+          <img src="/ai-portfolio-banner.webp" alt="AI portfolio" className="md:w-2/3 w-full rounded-xl" />
+        </div>
+      )}
       {/* Search */}
       <div className="flex items-center gap-2 mb-3">
         <input
