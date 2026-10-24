@@ -10,13 +10,13 @@ export const useGithubRepos = (username, limit = 5) => {
     const loadRepos = async () => {
       try {
         const data = await fetchUserRepos(username)
-        const pinnedForks = ['Dockerized_Flask_Mongo_App_Project', 'ai-portfolio']
+        const pinnedForks = ['Dockerized_Flask_Mongo_App_Project']
         const filtered = data.filter(repo => !repo.fork || pinnedForks.includes(repo.name))
-        const repoOrder = ['Printup-playwright-project', 'MyFinancialPlan-project', 'Python-project', 'Dockerized_Flask_Mongo_App_Project', 'ai-portfolio']
+        const repoOrder = ['Printup-playwright-project', 'MyFinancialPlan-project', 'Python-project', 'Dockerized_Flask_Mongo_App_Project', 'Heirloom4life-mobile-automation-project']
         const ordered = [
           ...repoOrder.map(name => filtered.find(repo => repo.name === name)).filter(Boolean),
           ...filtered.filter(repo => !repoOrder.includes(repo.name))
-        ].slice(0, limit)
+        ].slice(0, limit).map(repo => repo.name === 'Heirloom4life-mobile-automation-project' ? { ...repo, name: 'Heirloom4life mobile project' } : repo)
         setRepos(ordered)
       } catch (err) {
         setError(err)
